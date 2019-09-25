@@ -1,1 +1,1 @@
-# data-collector
+# Initial structure of data collector
