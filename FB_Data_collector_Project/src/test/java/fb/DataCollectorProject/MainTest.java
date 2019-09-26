@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-public class Main {
+public class MainTest {
     private static WebDriver driver;
 
 
@@ -29,10 +29,10 @@ public class Main {
     @Test
     public void testMethod() throws InterruptedException { //
         Utils.maximizeWindow(driver);
-        Utils.doTimeOuts(driver, 30);
-        Utils.getUrl(driver,Constants.BASE_URL);
+        Utils.doTimeOuts(driver);
+        Utils.getUrl(driver);
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.goToMainPage(Constants.INPUT_LOGIN, Constants.INPUT_PASSWORD);
+        loginPage.goToMainPage();
         MainPage mainPage = new MainPage(driver);
         mainPage.userProfileButtonClick();
         Thread.sleep(5000);

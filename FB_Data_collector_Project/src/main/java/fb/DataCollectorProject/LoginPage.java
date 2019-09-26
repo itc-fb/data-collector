@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+class LoginPage {
 
 
         private WebDriver driver;
 
-        public LoginPage(WebDriver driver) {
+        LoginPage(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
         }
@@ -28,28 +28,26 @@ public class LoginPage {
 
 
 
-    public LoginPage loginFieldInput(String login){
-        loginFieldLocator.sendKeys(login);
-        return this;
-    }
-
-    public LoginPage passwordFieldInput(String password){
-        passwordFieldLocator.sendKeys(password);
-        return this;
+    private void loginFieldInput(){
+        loginFieldLocator.sendKeys(Constants.INPUT_LOGIN);
     }
 
 
-    public LoginPage submitButtonClick(){
+    private void passwordFieldInput(){
+        passwordFieldLocator.sendKeys(Constants.INPUT_PASSWORD);
+    }
+
+
+    private void submitButtonClick(){
         submitButtonLocator.click();
-        return this;
     }
 
 
-    public MainPage goToMainPage(String log, String pass){
-        loginFieldInput(log);
-        passwordFieldInput(pass);
+    void goToMainPage(){
+        loginFieldInput();
+        passwordFieldInput();
         submitButtonClick();
-        return new MainPage(driver);
+        new MainPage(driver);
     }
 
 
