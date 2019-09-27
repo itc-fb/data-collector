@@ -8,7 +8,7 @@
 FB_Data_collector_Project/target/
 **/stale_outputs_checked
 **/javac
-../test-output/
+**/test-output/
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
