@@ -1,8 +1,9 @@
 package fb.DataCollectorProject;
 
+import fb.DataCollectorProject.Pages.LoginPage;
+import fb.DataCollectorProject.Pages.MainPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -10,21 +11,16 @@ import org.testng.annotations.Test;
 public class MainTest {
     private static WebDriver driver;
 
-
     @BeforeClass
     static public void beforeC() {
-        ChromeOptions ops = new ChromeOptions();
-        ops.addArguments("--disable-notifications");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Ke1io\\Downloads\\111111111111\\chromedriver.exe");
-        driver = new ChromeDriver(ops);
+        Utils.initializeDriver();
+        driver = Utils.driver;
     }
 
-
-//    @AfterClass
-//    static public void afterC() {
-//        driver.quit();
-//    }
-
+    @AfterClass
+    static public void afterC() {
+        Utils.closeDriver(driver);
+    }
 
     @Test
     public void testMethod() throws InterruptedException { //
@@ -36,8 +32,7 @@ public class MainTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.userProfileButtonClick();
         Thread.sleep(5000);
-        System.out.println(driver.getTitle());
+        System.out.println(System.getProperty("os.name"));
     }
-
 
 }
