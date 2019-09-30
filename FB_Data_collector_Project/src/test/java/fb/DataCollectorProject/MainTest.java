@@ -13,36 +13,50 @@ import org.testng.annotations.Test;
 public class MainTest {
     private static WebDriver driver;
 
+    private void openFacebookPage(){
+        Utils.maximizeWindow(driver);
+        Utils.doTimeOuts(driver);
+        Utils.getUrl(driver);
+    }
+
+    private void getLoggedToMainPage(){
+        new LoginPage(driver).goToMainPage();
+    }
+
+    private void goToUserProfile(){
+        new MainPage(driver).userProfileButtonClick();
+    }
+
+    private void getFriendsList() throws InterruptedException {
+        new FriendsList(driver).getFriendsList();
+    }
+
+    private void getPlaceList() throws InterruptedException {
+        new PlacesList(driver).getPlaces();
+    }
+
     @BeforeClass
     static public void beforeC() {
         Utils.initializeDriver();
         driver = Utils.driver;
     }
 
-//    @AfterClass
-//    static public void afterC() {
-//        Utils.closeDriver(driver);
-//    }
+    @AfterClass
+    static public void afterC() {
+        Utils.closeDriver(driver);
+    }
 
     @Test
-    public void testMethod() throws InterruptedException { //
-        Utils.maximizeWindow(driver);
-        Utils.doTimeOuts(driver);
-        Utils.getUrl(driver);
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.goToMainPage();
-        MainPage mainPage = new MainPage(driver);
-        mainPage.userProfileButtonClick();
+    public void testMethod() throws InterruptedException {
+        openFacebookPage();
+        getLoggedToMainPage();
+        goToUserProfile();
         Utils.waitByMls(5000);
-        FriendsList friendsList = new FriendsList(driver);
-        friendsList.getFriendsList();
-        mainPage.userProfileButtonClick();
+        getFriendsList();
+        goToUserProfile();
         Utils.waitByMls(5000);
-        PlacesList placesList = new PlacesList(driver);
-        placesList.getPlaces();
-
+        getPlaceList();
 
         System.out.println(System.getProperty("os.name"));
     }
-
 }

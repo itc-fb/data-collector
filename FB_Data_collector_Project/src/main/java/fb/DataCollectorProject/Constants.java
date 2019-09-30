@@ -16,10 +16,11 @@ public class Constants {
     public static final String VISIBLE_FRIENDS_LOCATOR_BY_CSS = "div>a[class=\"_5q6s _8o _8t lfloat _ohe\"]>img";
     public static final String AFTER_SCROLL_FRIENDS_LOCATOR_BY_CSS = "div>a[class=\"_5q6s _8o _8t lfloat _ohe\"]>img";
 
+    // User profile locator
+    public static final String USER_PROFILE_BUTTON = "#u_0_a > div:nth-child(1) > div:nth-child(1) > div > a";
 
     // Place list locators
-
-    public static final String MORE_DROPDOWN_LOCATOR_BY_CSS = "ul>li>div[class=\"_6a uiPopover 6-6 9rx _5v-0\"]";
+    public static final String MORE_DROPDOWN_LOCATOR_BY_CSS = "ul[class=\"_6_7 clearfix\"]>:nth-child(6)>div";
     public static final String PLACE_LOCATOR_BY_CSS = "li>a[data-tab-key=\"map\"]";
     public static final String PLACE_ELEMENTS_LOCATOR_BY_CSS = "li>div>div[class=\"_gx6 _agv\"]>a";
 
