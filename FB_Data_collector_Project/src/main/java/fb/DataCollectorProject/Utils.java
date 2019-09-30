@@ -1,8 +1,10 @@
 package fb.DataCollectorProject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,7 +44,16 @@ public class Utils {
         Thread.sleep(mls);
     }
 
+//    public static void moveToElement(WebElement el){
+//        Actions actions = new Actions(Utils.driver);
+//        actions.moveToElement(el).perform();
+//    }
+
+
+
     static void closeDriver(WebDriver dr){
         dr.quit();
     }
+
+
 }

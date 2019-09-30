@@ -3,6 +3,7 @@ package fb.DataCollectorProject;
 import fb.DataCollectorProject.Pages.LoginPage;
 import fb.DataCollectorProject.Pages.MainPage;
 import fb.DataCollectorProject.getData.FriendsList;
+import fb.DataCollectorProject.getData.PlacesList;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,10 +19,10 @@ public class MainTest {
         driver = Utils.driver;
     }
 
-    @AfterClass
-    static public void afterC() {
-        Utils.closeDriver(driver);
-    }
+//    @AfterClass
+//    static public void afterC() {
+//        Utils.closeDriver(driver);
+//    }
 
     @Test
     public void testMethod() throws InterruptedException { //
@@ -35,6 +36,12 @@ public class MainTest {
         Utils.waitByMls(5000);
         FriendsList friendsList = new FriendsList(driver);
         friendsList.getFriendsList();
+        mainPage.userProfileButtonClick();
+        Utils.waitByMls(5000);
+        PlacesList placesList = new PlacesList(driver);
+        placesList.getPlaces();
+
+
         System.out.println(System.getProperty("os.name"));
     }
 
