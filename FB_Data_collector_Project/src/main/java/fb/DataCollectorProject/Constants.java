@@ -2,8 +2,8 @@ package fb.DataCollectorProject;
 
 public class Constants {
     // Login data
-    public static final String INPUT_LOGIN = "iccup.ke1io@gmail.com";
-    public static final String INPUT_PASSWORD = "1354622a";
+    public static final String INPUT_LOGIN = "+37491221382";
+    public static final String INPUT_PASSWORD = "123456789ll";
     static final String BASE_URL = "https://www.facebook.com/";
 
     // Login page locators
