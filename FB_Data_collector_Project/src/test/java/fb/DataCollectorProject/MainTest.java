@@ -2,6 +2,7 @@ package fb.DataCollectorProject;
 
 import fb.DataCollectorProject.Pages.LoginPage;
 import fb.DataCollectorProject.Pages.MainPage;
+import fb.DataCollectorProject.getData.FriendsList;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -31,7 +32,9 @@ public class MainTest {
         loginPage.goToMainPage();
         MainPage mainPage = new MainPage(driver);
         mainPage.userProfileButtonClick();
-        Thread.sleep(5000);
+        Utils.waitByMls(5000);
+        FriendsList friendsList = new FriendsList(driver);
+        friendsList.getFriendsList();
         System.out.println(System.getProperty("os.name"));
     }
 
