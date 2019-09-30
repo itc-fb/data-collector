@@ -1,5 +1,6 @@
 package fb.DataCollectorProject.Pages;
 
+import fb.DataCollectorProject.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,7 +13,7 @@ public class MainPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "#u_0_a > div:nth-child(1) > div:nth-child(1) > div > a")
+    @FindBy(css = Constants.USER_PROFILE_BUTTON)
     private WebElement userProfileButton;
 
     public void userProfileButtonClick(){

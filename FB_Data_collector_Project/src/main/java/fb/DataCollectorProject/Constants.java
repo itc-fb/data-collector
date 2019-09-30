@@ -12,8 +12,17 @@ public class Constants {
     public static final String SUBMIT_BUTTON_LOCATOR_BY_ID = "loginbutton";
 
     // Friends list locators
-    public static final String FRIENDS_SECTION_LOCATOR_BY_CSS = "div[class=\"_70k\"]>ul>:nth-child(3)";
+    public static final String FRIENDS_SECTION_LOCATOR_BY_CSS = "div[class=\"_70k\"]>ul>:nth-child(3)>a";
     public static final String VISIBLE_FRIENDS_LOCATOR_BY_CSS = "div>a[class=\"_5q6s _8o _8t lfloat _ohe\"]>img";
     public static final String AFTER_SCROLL_FRIENDS_LOCATOR_BY_CSS = "div>a[class=\"_5q6s _8o _8t lfloat _ohe\"]>img";
+
+    // User profile locator
+    public static final String USER_PROFILE_BUTTON = "#u_0_a > div:nth-child(1) > div:nth-child(1) > div > a";
+
+    // Place list locators
+    public static final String MORE_DROPDOWN_LOCATOR_BY_CSS = "ul[class=\"_6_7 clearfix\"]>:nth-child(6)>div";
+    public static final String PLACE_LOCATOR_BY_CSS = "li>a[data-tab-key=\"map\"]";
+    public static final String PLACE_ELEMENTS_LOCATOR_BY_CSS = "li>div>div[class=\"_gx6 _agv\"]>a";
+
 
 }
