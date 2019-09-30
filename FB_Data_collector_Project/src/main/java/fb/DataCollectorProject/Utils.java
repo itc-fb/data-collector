@@ -1,12 +1,13 @@
 package fb.DataCollectorProject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-class Utils {
-    static WebDriver driver;
+public class Utils {
+    public static WebDriver driver;
     private static String operationSystem = System.getProperty("os.name");
 
     static void  maximizeWindow(WebDriver dr){
@@ -31,6 +32,14 @@ class Utils {
             System.setProperty("webdriver.chrome.driver", linuxChromeDriverPath);
         }
         driver = new ChromeDriver(ops);
+    }
+    public static void scrollByLocation(int location){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0," + location + ")");
+    }
+
+    public static void waitByMls(int mls) throws InterruptedException {
+        Thread.sleep(mls);
     }
 
     static void closeDriver(WebDriver dr){
