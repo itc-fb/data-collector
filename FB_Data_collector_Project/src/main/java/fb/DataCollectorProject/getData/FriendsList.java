@@ -23,8 +23,8 @@ public class FriendsList extends BasePage {
     @FindBy(css = Constants.FRIENDS_SECTION_LOCATOR_BY_CSS)
     private WebElement friendsSectionLocator;
 
-    @FindBy(css = Constants.AFTER_SCROLL_FRIENDS_LOCATOR_BY_CSS)
-    private List<WebElement> afterScroll;
+    @FindBy(css = Constants.FRIENDS_COUNT_LOCATOR_BY_CSS)
+    private WebElement friendsCountLocator;
 
     private void friendsSectionClick() {
         friendsSectionLocator.click();
@@ -34,14 +34,16 @@ public class FriendsList extends BasePage {
         ArrayList<String> friendsList = new ArrayList<>();
         WebElement lastFriend;
         int location;
-        while (true) {
+        int count = Integer.parseInt(friendsCountLocator.getText());
+
+        while (visibleFriends.size() <= count) {
             lastFriend = visibleFriends.get(visibleFriends.size() - 1);
             location = lastFriend.getLocation().y;
             Utils.scrollByLocation(location);
             Utils.waitByMls(3000);
-            if (visibleFriends.size() == afterScroll.size()) {
+            if (visibleFriends.size() == count) {
                 String friendAttributeAriaLabel = "aria-label";
-                for (WebElement friend : afterScroll
+                for (WebElement friend : visibleFriends
                 ) {
                     friendsList.add(friend.getAttribute(friendAttributeAriaLabel));
                 }
