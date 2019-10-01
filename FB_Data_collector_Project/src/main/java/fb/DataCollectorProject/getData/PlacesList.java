@@ -5,7 +5,6 @@ import fb.DataCollectorProject.Pages.BasePage;
 import fb.DataCollectorProject.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -26,22 +25,40 @@ public class PlacesList extends BasePage {
     private WebElement moreDropDownLocator;
 
 
-    @FindBy(css = Constants.PLACE_LOCATOR_BY_CSS)
-    private WebElement placeLocator;
+    @FindBy(css = Constants.PLACE_SECTION_LOCATOR_BY_CSS)
+    private WebElement placeSectionLocator;
 
 
-    @FindBy(css = Constants.PLACE_ELEMENTS_LOCATOR_BY_CSS)
-    private List<WebElement> placeElements;
+    @FindBy(css = Constants.VISIBLE_PLACES_LOCATOR_BY_CSS)
+    private List<WebElement> visiblePlaces;
+
+    @FindBy(css = Constants.PLACES_COUNT_LOCATOR_BY_CSS)
+    private WebElement placesCountLocator;
 
     private void placeLocatorClick() {
-        placeLocator.click();
+        placeSectionLocator.click();
     }
 
-    private ArrayList<String> getPlacesNames() {
+    private ArrayList<String> getPlacesNames() throws InterruptedException {
         ArrayList<String> places = new ArrayList<>();
-        for (WebElement placeElement : placeElements
-        ) {
-            places.add(placeElement.getAttribute("title"));
+        WebElement lastPlace;
+        int location;
+        int count = Integer.parseInt(placesCountLocator.getText());
+
+        while (visiblePlaces.size() <= count){
+            lastPlace = visiblePlaces.get(visiblePlaces.size() - 1);
+            location = lastPlace.getLocation().y;
+            Utils.scrollByLocation(location);
+            Utils.waitByMls(3000);
+
+            if(visiblePlaces.size() == count){
+                String placeAttributeTitle = "title";
+                for (WebElement placeElement : visiblePlaces
+                ) {
+                    places.add(placeElement.getAttribute(placeAttributeTitle));
+                }
+                break;
+            }
         }
         return places;
     }
