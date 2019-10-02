@@ -32,4 +32,18 @@ public class Constants {
     public static final String VIDEO_SECTION_LOCATOR_BY_CSS = "li>a[data-tab-key=\"videos\"]";
     public static final String VISIBLE_VIDEOS_LOCATOR_BY_CSS = "div[class=\"_5h60 _30f\"]>ul>li>a[class=\"async_saving _400z _2-40 __-q\"]";
     public static final String VIDEO_DESCRIPTION_LOCATOR_BY_CSS = "div[class=\"_5-g_ _3qw\"] >div>div>div>div>div[class=\"_6444 _-pb\"]>div[class=\"_437j\"]>:nth-child(2)>:nth-child(2)>span>div";
+
+    // Post list locators
+
+    public static final String POST_LIST_LOCATOR_BY_CSS = "div[class=\"_5pcb _4b0l _2q8l\"]";
+    public static final String POST_TITLE_LOCATOR_BY_CSS = "[class=\"_7tae _14f3 _14f5 _5pbw _5vra\"]";
+    public static final String POST_DATE_LOCATOR_BY_TAG_NAME = "abbr";
+    public static final String POST_MESSAGE_TEXT_BY_CSS = "div[data-testid=\"post_message\"]>p";
+    public static final String POST_MESSAGE_LINK_BY_CSS = "div[data-testid=\"post_message\"]>p>a";
+
+
+    //public static final String
+
+
+
     }

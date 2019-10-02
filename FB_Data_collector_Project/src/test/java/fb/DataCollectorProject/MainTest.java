@@ -4,6 +4,7 @@ import fb.DataCollectorProject.Pages.LoginPage;
 import fb.DataCollectorProject.Pages.MainPage;
 import fb.DataCollectorProject.getData.FriendsList;
 import fb.DataCollectorProject.getData.PlacesList;
+import fb.DataCollectorProject.getData.PostList;
 import fb.DataCollectorProject.getData.VideosList;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
@@ -40,6 +41,10 @@ public class MainTest {
         new VideosList(driver).getVideos();
     }
 
+    private void getUserPostList() throws InterruptedException {
+        new PostList(driver).getUserPosts();
+    }
+
 
     @BeforeClass
     static public void beforeC() {
@@ -58,15 +63,21 @@ public class MainTest {
         getLoggedToMainPage();
         goToUserProfile();
         Utils.waitByMls(5000);
-        getFriendsList();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        getPlaceList();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        getVideosList();
+        getUserPostList();
+
+//        getFriendsList();
+//        goToUserProfile();
+//        Utils.waitByMls(5000);
+//        getPlaceList();
+//        goToUserProfile();
+//        Utils.waitByMls(5000);
+//        getVideosList();
 
 
         System.out.println(System.getProperty("os.name"));
+
+
     }
+
+
 }
