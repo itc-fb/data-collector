@@ -63,15 +63,16 @@ public class MainTest {
         getLoggedToMainPage();
         goToUserProfile();
         Utils.waitByMls(5000);
+        getFriendsList();
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        getPlaceList();
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        getVideosList();
+        goToUserProfile();
+        Utils.waitByMls(5000);
         getUserPostList();
-
-//        getFriendsList();
-//        goToUserProfile();
-//        Utils.waitByMls(5000);
-//        getPlaceList();
-//        goToUserProfile();
-//        Utils.waitByMls(5000);
-//        getVideosList();
 
 
         System.out.println(System.getProperty("os.name"));

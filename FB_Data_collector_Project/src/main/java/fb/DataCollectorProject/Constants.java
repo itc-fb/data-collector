@@ -36,10 +36,9 @@ public class Constants {
     // Post list locators
 
     public static final String POST_LIST_LOCATOR_BY_CSS = "div[class=\"_5pcb _4b0l _2q8l\"]";
-    public static final String POST_TITLE_LOCATOR_BY_CSS = "[class=\"_7tae _14f3 _14f5 _5pbw _5vra\"]";
-    public static final String POST_DATE_LOCATOR_BY_TAG_NAME = "abbr";
-    public static final String POST_MESSAGE_TEXT_BY_CSS = "div[data-testid=\"post_message\"]>p";
-    public static final String POST_MESSAGE_LINK_BY_CSS = "div[data-testid=\"post_message\"]>p>a";
+//    public static final String POST_TITLE_LOCATOR_BY_CSS = "[class=\"_7tae _14f3 _14f5 _5pbw _5vra\"]";
+//    public static final String POST_DATE_LOCATOR_BY_TAG_NAME = "abbr";
+    public static final String POST_MESSAGE_TEXT_BY_CSS = "div[class=\"_1dwg _1w_m _q7o\"]";
 
 
     //public static final String
