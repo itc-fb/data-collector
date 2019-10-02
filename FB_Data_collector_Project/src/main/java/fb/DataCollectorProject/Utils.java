@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
-    static WebDriver driver;
+    public static WebDriver driver;
     private static String operationSystem = System.getProperty("os.name");
 
     static void maximizeWindow(WebDriver dr) {
