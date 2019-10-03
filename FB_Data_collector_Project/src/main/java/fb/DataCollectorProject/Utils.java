@@ -1,5 +1,6 @@
 package fb.DataCollectorProject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,8 +18,8 @@ public class Utils {
         dr.manage().window().maximize();
     }
 
-    static void doTimeOuts(WebDriver dr) {
-        dr.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    public static void doTimeOuts(WebDriver dr, int seconds) {
+        dr.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
     static void getUrl(WebDriver dr) {
@@ -50,6 +51,22 @@ public class Utils {
     public static void moveToElement(WebElement el) {
         Actions actions = new Actions(Utils.driver);
         actions.moveToElement(el).perform();
+    }
+
+    public static String getElementAttributeValueByCss(WebElement parent, String selector, String attribute){
+        try{
+            return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
+            return "not exist";
+        }
+    }
+
+    public static String getElementInnerTextByCss(WebElement parent, String selector){
+        try{
+            return parent.findElement(By.cssSelector(selector)).getText();
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
+            return "not exist";
+        }
     }
 
     static void closeDriver(WebDriver dr) {

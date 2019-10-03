@@ -17,7 +17,7 @@ public class MainTest {
 
     private void openFacebookPage(){
         Utils.maximizeWindow(driver);
-        Utils.doTimeOuts(driver);
+        Utils.doTimeOuts(driver, 30);
         Utils.getUrl(driver);
     }
 
@@ -44,7 +44,6 @@ public class MainTest {
     private void getUserPostList() throws InterruptedException {
         new PostList(driver).getUserPosts();
     }
-
 
     @BeforeClass
     static public void beforeC() {
@@ -74,11 +73,6 @@ public class MainTest {
         Utils.waitByMls(5000);
         getUserPostList();
 
-
         System.out.println(System.getProperty("os.name"));
-
-
     }
-
-
 }
