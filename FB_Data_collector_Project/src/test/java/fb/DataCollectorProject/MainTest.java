@@ -2,14 +2,13 @@ package fb.DataCollectorProject;
 
 import fb.DataCollectorProject.Pages.LoginPage;
 import fb.DataCollectorProject.Pages.MainPage;
-import fb.DataCollectorProject.getData.FriendsList;
-import fb.DataCollectorProject.getData.PlacesList;
-import fb.DataCollectorProject.getData.PostList;
-import fb.DataCollectorProject.getData.VideosList;
+import fb.DataCollectorProject.getData.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 
 public class MainTest {
@@ -45,6 +44,10 @@ public class MainTest {
         new PostList(driver).getUserPosts();
     }
 
+    private void getPhotoList() throws InterruptedException {
+        new PhotoList(driver).getPhotos();
+    }
+
     @BeforeClass
     static public void beforeC() {
         Utils.initializeDriver();
@@ -57,21 +60,22 @@ public class MainTest {
     }
 
     @Test
-    public void testMethod() throws InterruptedException {
+    public void testMethod() throws InterruptedException, IOException {
         openFacebookPage();
         getLoggedToMainPage();
         goToUserProfile();
         Utils.waitByMls(5000);
-        getFriendsList();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        getPlaceList();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        getVideosList();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        getUserPostList();
+//        getFriendsList();
+//        goToUserProfile();
+//        Utils.waitByMls(5000);
+//        getPlaceList();
+//        goToUserProfile();
+//        Utils.waitByMls(5000);
+//        getVideosList();
+//        goToUserProfile();
+//        Utils.waitByMls(5000);
+//        getUserPostList();
+          getPhotoList();
 
         System.out.println(System.getProperty("os.name"));
     }

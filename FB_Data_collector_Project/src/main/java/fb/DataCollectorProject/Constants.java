@@ -34,10 +34,9 @@ public class Constants {
     public static final String VIDEO_DESCRIPTION_LOCATOR_BY_CSS = "div[class=\"_5-g_ _3qw\"] >div>div>div>div>div[class=\"_6444 _-pb\"]>div[class=\"_437j\"]>:nth-child(2)>:nth-child(2)>span>div";
 
     // Post list locators
-
-    public static final String POST_LIST_LOCATOR_BY_CSS = "div[class=\"_5pcb _4b0l _2q8l\"]";
+    public static final String POST_LIST_LOCATOR_BY_CSS = "div[class=\"_5pcr userContentWrapper\"]";
     public static final String POST_TITLE_LOCATOR_BY_CSS = "[class=\"_7tae _14f3 _14f5 _5pbw _5vra\"]";
-    public static final String POST_DATE_LOCATOR_BY_CSS = "abbr";
+    public static final String POST_DATE_LOCATOR_BY_CSS = "a[class=\"_5pcq\"]>abbr";
     public static final String POST_MESSAGE_TEXT_BY_CSS = "div[data-testid=\"post_message\"]>p";
     public static final String POST_MAP_ATTACHMENT_IMAGE_LOCATOR_BY_CSS = "div[class=\"_4j7v _4_w3\"]>img";
     public static final String POST_IMAGE_LOCATOR_BY_CSS = "div[class=\"_46-h _4-ep\"]>img";
@@ -45,8 +44,17 @@ public class Constants {
     public static final String POST_LINK_LOCATOR_BY_CSS = "div[class=\"_3bjv ellipsis\"]>a";
     public static final String COUNT_OF_PEOPLE_CHECKED_IN_POST_LINK_LOCATOR_BY_CSS = "div[class=\"_1-jc ellipsis\"]>span";
     public static final String PLACE_WHERE_CHECKED_IN_THE_POST_LOCATOR_BY_CSS = "div[class=\"_1-jb ellipsis fsm fwn fcg\"]";
-    //public static final String
+    public static final String POST_TEXT_TITLE_LOCATOR_BY_CSS = "div[class=\"mtm _5pcm\"]>span";
+    public static final String POST_TEXT_LOCATOR_BY_CSS = "div[class=\"text_exposed_root\"]>:nth-child(1)";
+    public static final String SHARED_POST_LINK_LOCATOR_BY_CSS = "div[class=\"_3ekx _29_4\"]>a";
 
-
-
-    }
+    // Photo list locators
+    public static final String PHOTO_SECTION_LOCATOR_BY_CSS = "li>a[data-tab-key=\"photos\"]";
+    public static final String PHOTOS_SECTIONS_LOCATOR_BY_CSS = "div[class=\"_3dc lfloat _ohe _5brz\"]>a";
+    public static final String FIRST_PHOTO_LOCATOR_BY_CSS = "div[class=\"tagWrapper\"]";
+    public static final String IMAGE_LOCATOR_BY_CSS = "div[class=\"_2-sx\"]>img";
+    public static final String IMAGE_DATE_LOCATOR_BY_CSS = "span[id=\"fbPhotoSnowliftTimestamp\"]>a>abbr";
+    public static final String IMAGE_TEXT_LOCATOR_BY_CSS = "span[class=\"hasCaption\"]";
+    public static final String IMAGE_PLACE_LOCATOR_BY_CSS = "span[class=\"ogTagItem\"]>span>span>a";
+    public static final String IMAGE_ATTACHED_PEOPLE_LOCATOR_BY_CSS = "span[class=\"ogTagItem\"]>span>a";
+}

@@ -1,13 +1,11 @@
 package fb.DataCollectorProject;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
@@ -53,18 +51,34 @@ public class Utils {
         actions.moveToElement(el).perform();
     }
 
-    public static String getElementAttributeValueByCss(WebElement parent, String selector, String attribute){
+    public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
         try{
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
+        }catch (NoSuchElementException |StaleElementReferenceException e){
             return "not exist";
         }
     }
 
-    public static String getElementInnerTextByCss(WebElement parent, String selector){
+    public static String getElementInnerTextByParentByCss(WebElement parent, String selector){
         try{
             return parent.findElement(By.cssSelector(selector)).getText();
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return "not exist";
+        }
+    }
+
+    public static String getElementAttributeValueByCss(String selector, String attribute){
+        try{
+            return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return "not exist";
+        }
+    }
+
+    public static String getElementInnerTextByCss(String selector){
+        try{
+            return driver.findElement(By.cssSelector(selector)).getText();
+        }catch (NoSuchElementException | StaleElementReferenceException e){
             return "not exist";
         }
     }
