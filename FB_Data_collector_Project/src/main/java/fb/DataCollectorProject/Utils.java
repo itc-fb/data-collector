@@ -54,7 +54,7 @@ public class Utils {
     public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
         try{
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (NoSuchElementException |StaleElementReferenceException e){
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
             return "not exist";
         }
     }
@@ -62,7 +62,7 @@ public class Utils {
     public static String getElementInnerTextByParentByCss(WebElement parent, String selector){
         try{
             return parent.findElement(By.cssSelector(selector)).getText();
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
             return "not exist";
         }
     }
@@ -70,7 +70,7 @@ public class Utils {
     public static String getElementAttributeValueByCss(String selector, String attribute){
         try{
             return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
             return "not exist";
         }
     }
@@ -78,7 +78,7 @@ public class Utils {
     public static String getElementInnerTextByCss(String selector){
         try{
             return driver.findElement(By.cssSelector(selector)).getText();
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
             return "not exist";
         }
     }

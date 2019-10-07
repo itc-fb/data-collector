@@ -82,7 +82,7 @@ public class PhotoList extends BasePage {
                     attachedPerson.put("pageUrl", attachedPersonPageUrl);
                     attachedPerson.put("name", attachedPersonName);
                     attachedPeople.add(attachedPerson);
-                }catch (NoSuchElementException | StaleElementReferenceException e){
+                }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
                     attachedPeople.add(null);
                 }
             }
