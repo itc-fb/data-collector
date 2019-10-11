@@ -17,7 +17,6 @@ public class Constants {
     // More Section DropDown locator
     public static final String MORE_DROPDOWN_LOCATOR_BY_CSS = "ul[class=\"_6_7 clearfix\"]>:nth-child(6)>div";
 
-
     // Friends list locators
     public static final String FRIENDS_SECTION_LOCATOR_BY_CSS = "div[class=\"_70k\"]>ul>:nth-child(3)>a";
     public static final String VISIBLE_FRIENDS_LOCATOR_BY_CSS = "div>a[class=\"_5q6s _8o _8t lfloat _ohe\"]>img";

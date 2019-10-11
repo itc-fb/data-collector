@@ -29,22 +29,32 @@ public class MainTest {
     }
 
     private void getFriendsList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
         new FriendsList(driver).getFriendsList();
     }
 
     private void getPlaceList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
         new PlacesList(driver).getPlaces();
     }
 
     private void getVideosList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
         new VideosList(driver).getVideos();
     }
 
     private void getUserPostList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
         new PostList(driver).getUserPosts();
     }
 
     private void getPhotoList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
         new PhotoList(driver).getPhotos();
     }
 
@@ -63,19 +73,11 @@ public class MainTest {
     public void testMethod() throws InterruptedException, IOException {
         openFacebookPage();
         getLoggedToMainPage();
-        goToUserProfile();
-        Utils.waitByMls(5000);
-//        getFriendsList();
-//        goToUserProfile();
-//        Utils.waitByMls(5000);
-//        getPlaceList();
-//        goToUserProfile();
-//        Utils.waitByMls(5000);
-//        getVideosList();
-//        goToUserProfile();
-//        Utils.waitByMls(5000);
-//        getUserPostList();
-          getPhotoList();
+        getFriendsList();
+        getPlaceList();
+        getVideosList();
+        getUserPostList();
+        getPhotoList();
 
         System.out.println(System.getProperty("os.name"));
     }
