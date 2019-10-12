@@ -1,11 +1,10 @@
-package fb.DataCollectorProject;
+package dataCollector;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {

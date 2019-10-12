@@ -1,9 +1,8 @@
-package fb.DataCollectorProject.getData;
+package dataCollector.getData;
 
-import fb.DataCollectorProject.Constants;
-import fb.DataCollectorProject.Pages.BasePage;
-import fb.DataCollectorProject.Utils;
-import org.openqa.selenium.StaleElementReferenceException;
+import dataCollector.Constants;
+import dataCollector.pages.BasePage;
+import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

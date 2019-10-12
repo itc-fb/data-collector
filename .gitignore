@@ -5,7 +5,7 @@
 .idea/jsLibraryMappings.xml
 
 **/.idea/
-FB_Data_collector_Project/target/
+**/target/
 **/stale_outputs_checked
 **/javac
 **/test-output/

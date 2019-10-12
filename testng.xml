@@ -4,7 +4,7 @@
     <test name="FB_Test">
         <parameter name="browser" value="chrome" />
         <classes>
-            <class name="fb.DataCollectorProject.MainTest" />
+            <class name="dataCollector.MainTest" />
         </classes>
     </test>
 </suite>

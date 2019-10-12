@@ -1,8 +1,6 @@
-package fb.DataCollectorProject;
+package dataCollector;
 
-import fb.DataCollectorProject.Pages.LoginPage;
-import fb.DataCollectorProject.Pages.MainPage;
-import fb.DataCollectorProject.getData.*;
+import dataCollector.getData.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,11 +19,11 @@ public class MainTest {
     }
 
     private void getLoggedToMainPage(){
-        new LoginPage(driver).goToMainPage();
+        new dataCollector.pages.LoginPage(driver).goToMainPage();
     }
 
     private void goToUserProfile(){
-        new MainPage(driver).userProfileButtonClick();
+        new dataCollector.pages.MainPage(driver).userProfileButtonClick();
     }
 
     private void getFriendsList() throws InterruptedException {

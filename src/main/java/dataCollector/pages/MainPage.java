@@ -1,6 +1,6 @@
-package fb.DataCollectorProject.Pages;
+package dataCollector.pages;
 
-import fb.DataCollectorProject.Constants;
+import dataCollector.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

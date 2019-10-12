@@ -1,4 +1,4 @@
-package fb.DataCollectorProject;
+package dataCollector;
 
 public class Constants {
     // Login data

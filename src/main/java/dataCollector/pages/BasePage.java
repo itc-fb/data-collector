@@ -1,4 +1,4 @@
-package fb.DataCollectorProject.Pages;
+package dataCollector.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
