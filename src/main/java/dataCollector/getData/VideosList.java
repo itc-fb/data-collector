@@ -36,27 +36,38 @@ public class VideosList extends BasePage {
 
     private ArrayList<Map> getVideosList() throws InterruptedException {
         ArrayList<Map> videoList = new ArrayList<>();
-        WebElement lastVideo;
-        int location = 0;
-        while (true) {
-            lastVideo = visibleVideosLocator.get(visibleVideosLocator.size() - 1);
-            if (location == lastVideo.getLocation().y) {
-                for (WebElement videoInfo: visibleVideosLocator) {
-                    Utils.waitByMls(3000);
-                    Map<String, String> video = new HashMap<>();
-                    String videoUrl = videoInfo.getAttribute("href");
-                    videoInfo.click();
-                    String videoDescription = videoDescriptionLocator.getText();
-                    video.put("url", videoUrl);
-                    video.put("description ", videoDescription);
-                    Utils.driver.navigate().back();
-                    videoList.add(video);
+        if(visibleVideosLocator.size() > 0) {
+            WebElement lastVideo;
+            int location = 0;
+            while (true) {
+                lastVideo = visibleVideosLocator.get(visibleVideosLocator.size() - 1);
+                if (location == lastVideo.getLocation().y) {
+                    for (WebElement videoInfo : visibleVideosLocator) {
+                        Utils.waitByMls(3000);
+                        Map<String, String> video = new HashMap<>();
+                        String videoUrl = videoInfo.getAttribute("href");
+                        videoInfo.click();
+                        try {
+                            String videoDescription = videoDescriptionLocator.getText();
+                            video.put("url", videoUrl);
+                            video.put("description ", videoDescription);
+                        } catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e) {
+                            video.put("url", videoUrl);
+                            video.put("description ", Constants.notExist);
+                        }
+
+                        Utils.driver.navigate().back();
+                        videoList.add(video);
+                    }
+                    break;
                 }
-                break;
+                location = lastVideo.getLocation().y;
+                Utils.scrollByLocation(location);
+                Utils.waitByMls(3000);
             }
-            location = lastVideo.getLocation().y;
-            Utils.scrollByLocation(location);
-            Utils.waitByMls(3000);
+        }
+        else{
+            videoList.add(null);
         }
         return videoList;
     }

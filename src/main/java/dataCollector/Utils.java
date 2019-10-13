@@ -50,11 +50,13 @@ public class Utils {
         actions.moveToElement(el).perform();
     }
 
+
+
     public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
         try{
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
         }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+            return Constants.notExist;
         }
     }
 
@@ -62,7 +64,7 @@ public class Utils {
         try{
             return parent.findElement(By.cssSelector(selector)).getText();
         }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+            return Constants.notExist;
         }
     }
 
@@ -70,7 +72,7 @@ public class Utils {
         try{
             return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
         }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+            return Constants.notExist;
         }
     }
 
@@ -78,7 +80,7 @@ public class Utils {
         try{
             return driver.findElement(By.cssSelector(selector)).getText();
         }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+            return Constants.notExist;
         }
     }
 

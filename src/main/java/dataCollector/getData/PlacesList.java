@@ -41,24 +41,28 @@ public class PlacesList extends BasePage {
 
     private ArrayList<String> getPlacesNames() throws InterruptedException {
         ArrayList<String> places = new ArrayList<>();
-        WebElement lastPlace;
-        int location;
-        int count = Integer.parseInt(placesCountLocator.getText());
+        if (visiblePlaces.size() > 0) {
+            WebElement lastPlace;
+            int location;
+            int count = Integer.parseInt(placesCountLocator.getText());
 
-        while (visiblePlaces.size() <= count){
-            lastPlace = visiblePlaces.get(visiblePlaces.size() - 1);
-            location = lastPlace.getLocation().y;
-            Utils.scrollByLocation(location);
-            Utils.waitByMls(3000);
+            while (visiblePlaces.size() <= count) {
+                lastPlace = visiblePlaces.get(visiblePlaces.size() - 1);
+                location = lastPlace.getLocation().y;
+                Utils.scrollByLocation(location);
+                Utils.waitByMls(3000);
 
-            if(visiblePlaces.size() == count){
-                String placeAttributeTitle = "title";
-                for (WebElement placeElement : visiblePlaces
-                ) {
-                    places.add(placeElement.getAttribute(placeAttributeTitle));
+                if (visiblePlaces.size() == count) {
+                    String placeAttributeTitle = "title";
+                    for (WebElement placeElement : visiblePlaces
+                    ) {
+                        places.add(placeElement.getAttribute(placeAttributeTitle));
+                    }
+                    break;
                 }
-                break;
             }
+        } else {
+            places.add(null);
         }
         return places;
     }

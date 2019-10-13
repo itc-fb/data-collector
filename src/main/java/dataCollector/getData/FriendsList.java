@@ -33,23 +33,27 @@ public class FriendsList extends BasePage {
 
     private ArrayList<String> getFriends() throws InterruptedException {
         ArrayList<String> friendsList = new ArrayList<>();
-        WebElement lastFriend;
-        int location;
-        int count = Integer.parseInt(friendsCountLocator.getText());
+        if (visibleFriends.size() > 0) {
+            WebElement lastFriend;
+            int location;
+            int count = Integer.parseInt(friendsCountLocator.getText());
 
-        while (visibleFriends.size() <= count) {
-            lastFriend = visibleFriends.get(visibleFriends.size() - 1);
-            location = lastFriend.getLocation().y;
-            Utils.scrollByLocation(location);
-            Utils.waitByMls(3000);
-            if (visibleFriends.size() == count) {
-                String friendAttributeAriaLabel = "aria-label";
-                for (WebElement friend : visibleFriends
-                ) {
-                    friendsList.add(friend.getAttribute(friendAttributeAriaLabel));
+            while (visibleFriends.size() <= count) {
+                lastFriend = visibleFriends.get(visibleFriends.size() - 1);
+                location = lastFriend.getLocation().y;
+                Utils.scrollByLocation(location);
+                Utils.waitByMls(3000);
+                if (visibleFriends.size() == count) {
+                    String friendAttributeAriaLabel = "aria-label";
+                    for (WebElement friend : visibleFriends
+                    ) {
+                        friendsList.add(friend.getAttribute(friendAttributeAriaLabel));
+                    }
+                    break;
                 }
-                break;
             }
+        }else{
+            friendsList.add(null);
         }
         return friendsList;
     }

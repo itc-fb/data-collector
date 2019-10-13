@@ -1,6 +1,7 @@
 package dataCollector;
 
 public class Constants {
+    public static String notExist = "Not exist";
     // Login data
     public static final String INPUT_LOGIN = "+37491221382";
     public static final String INPUT_PASSWORD = "123456789ll";
