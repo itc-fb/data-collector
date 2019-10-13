@@ -1,7 +1,6 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlacesList extends BasePage {
+public class PlacesList{
 
     public PlacesList(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
 
     }

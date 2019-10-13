@@ -1,7 +1,6 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,9 +10,9 @@ import java.lang.Object;
 
 import java.util.*;
 
-public class PhotoList extends BasePage {
+public class PhotoList {
     public PhotoList(WebDriver driver) {
-        super(driver);
+
         PageFactory.initElements(driver, this);
     }
 
