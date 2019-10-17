@@ -3,13 +3,18 @@ package dataCollector.getData;
 import dataCollector.Constants;
 import dataCollector.pages.BasePage;
 import dataCollector.Utils;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.lang.Object;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
 
 public class PhotoList extends BasePage {
     public PhotoList(WebDriver driver) {
@@ -62,7 +67,7 @@ public class PhotoList extends BasePage {
                 imageTextLocator = Constants.IMAGE_TEXT_LOCATOR_BY_CSS,
                 imagePlaceLocator = Constants.IMAGE_PLACE_LOCATOR_BY_CSS,
                 firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, "src");
-        Utils.doTimeOuts(Utils.driver, 2);
+//        Utils.doTimeOuts(Utils.driver, 2);
         while(true){
 
             Map<String, Object> photo = new HashMap<>();
@@ -81,7 +86,7 @@ public class PhotoList extends BasePage {
                     attachedPerson.put("pageUrl", attachedPersonPageUrl);
                     attachedPerson.put("name", attachedPersonName);
                     attachedPeople.add(attachedPerson);
-                }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
+                }catch (NoSuchElementException | StaleElementReferenceException e){
                     attachedPeople.add(null);
                 }
             }
@@ -101,7 +106,7 @@ public class PhotoList extends BasePage {
             }
 
         }
-        Utils.doTimeOuts(Utils.driver, 30);
+//        Utils.doTimeOuts(Utils.driver, 30);
 //        ObjectMapper mapper = new ObjectMapper();
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(photoList));
         return photoList;

@@ -1,16 +1,17 @@
 package dataCollector;
 
 public class Constants {
-    public static String notExist = "Not exist";
     // Login data
     public static final String INPUT_LOGIN = "+37491221382";
     public static final String INPUT_PASSWORD = "123456789ll";
     static final String BASE_URL = "https://www.facebook.com/";
 
     // Login page locators
-    public static final String LOGIN_FIELD_LOCATOR_BY_ID = "email";
-    public static final String PASSWORD_FIELD_LOCATOR_BY_ID = "pass";
-    public static final String SUBMIT_BUTTON_LOCATOR_BY_ID = "loginbutton";
+    public static final String LOGIN_FIELD_LOCATOR_BY_CSS = "input[name=\"email\"]";
+    public static final String PASSWORD_FIELD_LOCATOR_BY_CSS = "input[name=\"pass\"]";
+    public static final String SUBMIT_INPUT_BUTTON_LOCATOR_BY_CSS = "input[type=\"submit\"]";
+    public static final String SUBMIT_BUTTON_LOCATOR_BY_CSS = "button[type=\"submit\"]";
+
 
     // User profile locator
     public static final String USER_PROFILE_BUTTON = "#u_0_a > div:nth-child(1) > div:nth-child(1) > div > a";

@@ -1,6 +1,12 @@
 package dataCollector;
 
-import org.openqa.selenium.*;
+import dataCollector.drivers.ChromeDriverFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -15,25 +21,25 @@ public class Utils {
         dr.manage().window().maximize();
     }
 
-    public static void doTimeOuts(WebDriver dr, int seconds) {
-        dr.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
-    }
+//    public static void doTimeOuts(WebDriver dr, int seconds) {
+//        dr.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+//    }
 
     static void getUrl(WebDriver dr) {
         dr.get(Constants.BASE_URL);
     }
 
     static void initializeDriver() {
-        ChromeOptions ops = new ChromeOptions();
-        ops.addArguments("--disable-notifications");
-        if (operationSystem.contains("Win")) {
-            String windowsChromeDriverPath = "src\\main\\resources\\driver\\win\\chromedriver.exe";
-            System.setProperty("webdriver.chrome.driver", windowsChromeDriverPath);
-        } else if (operationSystem.contains("Linux")) {
-            String linuxChromeDriverPath = "src/main/resources/driver/linux/chromedriver";
-            System.setProperty("webdriver.chrome.driver", linuxChromeDriverPath);
-        }
-        driver = new ChromeDriver(ops);
+//        ChromeOptions ops = new ChromeOptions();
+//        ops.addArguments("--disable-notifications");
+//        if (operationSystem.contains("Win")) {
+//            String windowsChromeDriverPath = "src\\main\\resources\\driver\\win\\chromedriver.exe";
+//            System.setProperty("webdriver.chrome.driver", windowsChromeDriverPath);
+//        } else if (operationSystem.contains("Linux")) {
+//            String linuxChromeDriverPath = "src/main/resources/driver/linux/chromedriver";
+//            System.setProperty("webdriver.chrome.driver", linuxChromeDriverPath);
+//        }
+        driver = new ChromeDriverFactory().initChromeDriver();
     }
 
     public static void scrollByLocation(int location) {
@@ -55,32 +61,32 @@ public class Utils {
     public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
         try{
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return Constants.notExist;
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return null;
         }
     }
 
     public static String getElementInnerTextByParentByCss(WebElement parent, String selector){
         try{
             return parent.findElement(By.cssSelector(selector)).getText();
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return Constants.notExist;
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return null;
         }
     }
 
     public static String getElementAttributeValueByCss(String selector, String attribute){
         try{
             return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return Constants.notExist;
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return null;
         }
     }
 
     public static String getElementInnerTextByCss(String selector){
         try{
             return driver.findElement(By.cssSelector(selector)).getText();
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return Constants.notExist;
+        }catch (NoSuchElementException | StaleElementReferenceException e){
+            return null;
         }
     }
 

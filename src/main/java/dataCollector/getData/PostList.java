@@ -48,7 +48,7 @@ public class PostList extends BasePage {
             newYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
             checkYear = lastDate.contains(Integer.toString(newYear));
             if (location == lastPost.getLocation().y || checkYear) {
-                Utils.doTimeOuts(Utils.driver, 0);
+//                Utils.doTimeOuts(Utils.driver, 0);
                 for (WebElement postInfo : postListLocator) {
                     Map<String, String> post = new HashMap<>();
                     String postTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTitleLocator),
@@ -83,7 +83,7 @@ public class PostList extends BasePage {
             Utils.scrollByLocation(location);
             Utils.waitByMls(3000);
         }
-        Utils.doTimeOuts(Utils.driver, 30);
+//        Utils.doTimeOuts(Utils.driver, 30);
         return postList;
     }
 

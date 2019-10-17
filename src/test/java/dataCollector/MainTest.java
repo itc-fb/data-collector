@@ -14,7 +14,7 @@ public class MainTest {
 
     private void openFacebookPage(){
         Utils.maximizeWindow(driver);
-        Utils.doTimeOuts(driver, 30);
+//        Utils.doTimeOuts(driver, 30);
         Utils.getUrl(driver);
     }
 
@@ -69,13 +69,14 @@ public class MainTest {
 
     @Test
     public void testMethod() throws InterruptedException, IOException {
+
         openFacebookPage();
         getLoggedToMainPage();
-        getFriendsList();
-        getPlaceList();
-        getVideosList();
-        getUserPostList();
-        getPhotoList();
+//        getFriendsList();
+//        getPlaceList();
+//        getVideosList();
+//        getUserPostList();
+//        getPhotoList();
 
         System.out.println(System.getProperty("os.name"));
     }

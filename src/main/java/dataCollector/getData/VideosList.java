@@ -53,7 +53,7 @@ public class VideosList extends BasePage {
                             video.put("description ", videoDescription);
                         } catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e) {
                             video.put("url", videoUrl);
-                            video.put("description ", Constants.notExist);
+                            video.put("description ", null);
                         }
 
                         Utils.driver.navigate().back();
