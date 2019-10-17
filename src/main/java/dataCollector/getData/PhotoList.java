@@ -1,7 +1,6 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -16,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 
-public class PhotoList extends BasePage {
+public class PhotoList {
     public PhotoList(WebDriver driver) {
-        super(driver);
+
         PageFactory.initElements(driver, this);
     }
 

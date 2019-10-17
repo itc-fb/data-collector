@@ -11,10 +11,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends BasePage {
+public class LoginPage {
 
     public LoginPage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
     private WebDriverWait wait = new WebDriverWait(Utils.driver, 3);

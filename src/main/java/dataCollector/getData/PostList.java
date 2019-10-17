@@ -2,7 +2,6 @@ package dataCollector.getData;
 
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,10 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.util.*;
 
-public class PostList extends BasePage {
+public class PostList {
 
     public PostList(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 

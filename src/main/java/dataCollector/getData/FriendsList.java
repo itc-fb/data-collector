@@ -2,7 +2,6 @@ package dataCollector.getData;
 
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,9 +11,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsList extends BasePage {
+public class FriendsList {
     public FriendsList(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 

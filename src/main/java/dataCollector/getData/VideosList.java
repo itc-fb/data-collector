@@ -1,7 +1,6 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
-import dataCollector.pages.BasePage;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,9 +10,9 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.*;
 
 
-public class VideosList extends BasePage {
+public class VideosList {
     public VideosList(WebDriver driver) {
-        super(driver);
+
         PageFactory.initElements(driver, this);
     }
 
