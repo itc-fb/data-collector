@@ -39,6 +39,7 @@ public class PlacesList{
 
     private ArrayList<String> getPlacesNames() throws InterruptedException {
         ArrayList<String> places = new ArrayList<>();
+        Utils.waitByMls(5000);
         if (visiblePlaces.size() > 0) {
             WebElement lastPlace;
             int location;
@@ -67,7 +68,7 @@ public class PlacesList{
 
     public void getPlaces() throws InterruptedException {
         Utils.moveToElement(moreDropDownLocator);
-        Utils.waitByMls(1000);
+        Utils.waitByMls(2000);
         placeLocatorClick();
         System.out.println(getPlacesNames());
     }

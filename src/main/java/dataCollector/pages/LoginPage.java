@@ -5,17 +5,11 @@ import dataCollector.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
-
-    public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-    }
     private WebDriverWait wait = new WebDriverWait(Utils.driver, 3);
 
     private void loginFieldInput(){

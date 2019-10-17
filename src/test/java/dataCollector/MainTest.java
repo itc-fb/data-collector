@@ -1,7 +1,8 @@
 package dataCollector;
 
 import dataCollector.getData.*;
-import org.openqa.selenium.WebDriver;
+import dataCollector.pages.LoginPage;
+import dataCollector.pages.MainPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -10,61 +11,58 @@ import java.io.IOException;
 
 
 public class MainTest {
-    private static WebDriver driver;
 
     private void openFacebookPage(){
-        Utils.maximizeWindow(driver);
-//        Utils.doTimeOuts(driver, 30);
-        Utils.getUrl(driver);
+        Utils.maximizeWindow(Utils.driver);
+        Utils.getUrl(Utils.driver);
     }
 
     private void getLoggedToMainPage(){
-        new dataCollector.pages.LoginPage(driver).goToMainPage();
+        new LoginPage().goToMainPage();
     }
 
     private void goToUserProfile(){
-        new dataCollector.pages.MainPage(driver).userProfileButtonClick();
+        new MainPage().userProfileButtonClick();
     }
 
     private void getFriendsList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new FriendsList(driver).getFriendsList();
+        new FriendsList(Utils.driver).getFriendsList();
     }
 
     private void getPlaceList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PlacesList(driver).getPlaces();
+        new PlacesList(Utils.driver).getPlaces();
     }
 
     private void getVideosList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new VideosList(driver).getVideos();
+        new VideosList(Utils.driver).getVideos();
     }
 
     private void getUserPostList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PostList(driver).getUserPosts();
+        new PostList(Utils.driver).getUserPosts();
     }
 
     private void getPhotoList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PhotoList(driver).getPhotos();
+        new PhotoList(Utils.driver).getPhotos();
     }
 
     @BeforeClass
-    static public void beforeC() {
-        Utils.initializeDriver();
-        driver = Utils.driver;
+    static public void setupDriver() {
+        Utils.initDriver();
     }
 
     @AfterClass
-    static public void afterC() {
-        Utils.closeDriver(driver);
+    static public void closeDriver() {
+        Utils.closeDriver(Utils.driver);
     }
 
     @Test

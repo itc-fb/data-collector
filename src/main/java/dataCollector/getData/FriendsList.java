@@ -31,6 +31,7 @@ public class FriendsList {
 
     private ArrayList<String> getFriends() throws InterruptedException {
         ArrayList<String> friendsList = new ArrayList<>();
+        Utils.waitByMls(5000);
         if (visibleFriends.size() > 0) {
             WebElement lastFriend;
             int location;
@@ -40,7 +41,7 @@ public class FriendsList {
                 lastFriend = visibleFriends.get(visibleFriends.size() - 1);
                 location = lastFriend.getLocation().y;
                 Utils.scrollByLocation(location);
-                Utils.waitByMls(3000);
+                Utils.waitByMls(5000);
                 if (visibleFriends.size() == count) {
                     String friendAttributeAriaLabel = "aria-label";
                     for (WebElement friend : visibleFriends
