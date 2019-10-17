@@ -35,6 +35,7 @@ public class VideosList {
 
     private ArrayList<Map> getVideosList() throws InterruptedException {
         ArrayList<Map> videoList = new ArrayList<>();
+        Utils.waitByMls(5000);
         if(visibleVideosLocator.size() > 0) {
             WebElement lastVideo;
             int location = 0;
@@ -42,7 +43,7 @@ public class VideosList {
                 lastVideo = visibleVideosLocator.get(visibleVideosLocator.size() - 1);
                 if (location == lastVideo.getLocation().y) {
                     for (WebElement videoInfo : visibleVideosLocator) {
-                        Utils.waitByMls(3000);
+                        Utils.waitByMls(2000);
                         Map<String, String> video = new HashMap<>();
                         String videoUrl = videoInfo.getAttribute("href");
                         videoInfo.click();
@@ -54,7 +55,7 @@ public class VideosList {
                             video.put("url", videoUrl);
                             video.put("description ", null);
                         }
-
+                        Utils.waitByMls(2000);
                         Utils.driver.navigate().back();
                         videoList.add(video);
                     }
@@ -72,9 +73,8 @@ public class VideosList {
     }
 
     public void getVideos() throws InterruptedException {
-        Utils.waitByMls(2000);
         Utils.moveToElement(moreDropDownLocator);
-        Utils.waitByMls(2000);
+        Utils.waitByMls(3000);
         videoSectionClick();
         System.out.println(getVideosList());
     }

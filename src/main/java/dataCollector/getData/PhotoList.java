@@ -17,7 +17,6 @@ import java.util.Map;
 
 public class PhotoList {
     public PhotoList(WebDriver driver) {
-
         PageFactory.initElements(driver, this);
     }
 
@@ -58,7 +57,7 @@ public class PhotoList {
         firstPhotoLocator.click();
     }
 
-    private ArrayList<Map> getPhotosList() {
+    private ArrayList<Map> getPhotosList() throws InterruptedException {
         ArrayList<Map> photoList = new ArrayList<>();
 
         String imageUrlLocator = Constants.IMAGE_LOCATOR_BY_CSS,
@@ -66,7 +65,6 @@ public class PhotoList {
                 imageTextLocator = Constants.IMAGE_TEXT_LOCATOR_BY_CSS,
                 imagePlaceLocator = Constants.IMAGE_PLACE_LOCATOR_BY_CSS,
                 firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, "src");
-//        Utils.doTimeOuts(Utils.driver, 2);
         while(true){
 
             Map<String, Object> photo = new HashMap<>();
@@ -99,13 +97,15 @@ public class PhotoList {
             photoList.add(photo);
 
             nextImageLocator.click();
+            Utils.waitByMls(3000);
             String checkImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator,"src");
+            assert firstImageUrl != null;
             if(firstImageUrl.equals(checkImageUrl)){
                 break;
             }
 
         }
-//        Utils.doTimeOuts(Utils.driver, 30);
+
 //        ObjectMapper mapper = new ObjectMapper();
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(photoList));
         return photoList;

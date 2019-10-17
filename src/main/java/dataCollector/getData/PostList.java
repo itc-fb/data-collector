@@ -40,13 +40,14 @@ public class PostList {
         int newYear,
                 location = 0;
         boolean checkYear;
+
         while (true) {
+            Utils.waitByMls(4000);
             lastPost = postListLocator.get(postListLocator.size() - 1);
             lastDate = postDateListLocator.get(postDateListLocator.size() - 1).getAttribute("title");
             newYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
             checkYear = lastDate.contains(Integer.toString(newYear));
             if (location == lastPost.getLocation().y || checkYear) {
-//                Utils.doTimeOuts(Utils.driver, 0);
                 for (WebElement postInfo : postListLocator) {
                     Map<String, String> post = new HashMap<>();
                     String postTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTitleLocator),
@@ -79,9 +80,7 @@ public class PostList {
             }
             location = lastPost.getLocation().y;
             Utils.scrollByLocation(location);
-            Utils.waitByMls(3000);
         }
-//        Utils.doTimeOuts(Utils.driver, 30);
         return postList;
     }
 

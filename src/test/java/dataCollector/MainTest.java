@@ -12,16 +12,16 @@ import java.io.IOException;
 
 public class MainTest {
 
-    private void openFacebookPage(){
+    private void openFacebookPage() {
         Utils.maximizeWindow(Utils.driver);
         Utils.getUrl(Utils.driver);
     }
 
-    private void getLoggedToMainPage(){
+    private void getLoggedToMainPage() {
         new LoginPage().goToMainPage();
     }
 
-    private void goToUserProfile(){
+    private void goToUserProfile() {
         new MainPage().userProfileButtonClick();
     }
 
@@ -70,11 +70,11 @@ public class MainTest {
 
         openFacebookPage();
         getLoggedToMainPage();
-//        getFriendsList();
-//        getPlaceList();
-//        getVideosList();
-//        getUserPostList();
-//        getPhotoList();
+        getFriendsList();
+        getPlaceList();
+        getVideosList();
+        getUserPostList();
+        getPhotoList();
 
         System.out.println(System.getProperty("os.name"));
     }
