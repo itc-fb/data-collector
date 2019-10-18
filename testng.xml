@@ -2,7 +2,6 @@
 
 <suite name="SeleniumTest" verbose="1">
     <test name="FB_Test">
-        <parameter name="browser" value="chrome" />
         <classes>
             <class name="dataCollector.MainTest" />
         </classes>

@@ -20,8 +20,15 @@ public class Utils {
         dr.get(Constants.BASE_URL);
     }
 
-    static void initDriver() {
-        driver = new ChromeDriverFactory().initChromeDriver();
+    static void initDriver(String browser) {
+        switch (browser) {    //TO DO
+            case "chrome":
+                driver = new ChromeDriverFactory().initChromeDriver();
+                break;
+            default:
+                System.out.println("---------Please enter correct browser name---------");
+                break;
+        }
     }
 
     public static void scrollByLocation(int location) {
@@ -38,34 +45,34 @@ public class Utils {
         actions.moveToElement(el).perform();
     }
 
-    public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
-        try{
+    public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute) {
+        try {
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
             return null;
         }
     }
 
-    public static String getElementInnerTextByParentByCss(WebElement parent, String selector){
-        try{
+    public static String getElementInnerTextByParentByCss(WebElement parent, String selector) {
+        try {
             return parent.findElement(By.cssSelector(selector)).getText();
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
             return null;
         }
     }
 
-    public static String getElementAttributeValueByCss(String selector, String attribute){
-        try{
+    public static String getElementAttributeValueByCss(String selector, String attribute) {
+        try {
             return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
             return null;
         }
     }
 
-    public static String getElementInnerTextByCss(String selector){
-        try{
+    public static String getElementInnerTextByCss(String selector) {
+        try {
             return driver.findElement(By.cssSelector(selector)).getText();
-        }catch (NoSuchElementException | StaleElementReferenceException e){
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
             return null;
         }
     }

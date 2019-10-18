@@ -5,10 +5,10 @@ import dataCollector.pages.LoginPage;
 import dataCollector.pages.MainPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-
 
 public class MainTest {
 
@@ -55,9 +55,11 @@ public class MainTest {
         new PhotoList(Utils.driver).getPhotos();
     }
 
+    @Parameters({"browser"})
     @BeforeClass
-    static public void setupDriver() {
-        Utils.initDriver();
+    static public void setupDriver(String browser) {
+
+        Utils.initDriver(browser);
     }
 
     @AfterClass
@@ -71,10 +73,10 @@ public class MainTest {
         openFacebookPage();
         getLoggedToMainPage();
         getFriendsList();
-        getPlaceList();
-        getVideosList();
-        getUserPostList();
-        getPhotoList();
+//        getPlaceList();
+//        getVideosList();
+//        getUserPostList();
+//        getPhotoList();
 
         System.out.println(System.getProperty("os.name"));
     }
