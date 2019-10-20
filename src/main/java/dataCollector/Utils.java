@@ -1,5 +1,7 @@
 package dataCollector;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import dataCollector.drivers.ChromeDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,6 +10,12 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utils {
     public static WebDriver driver;
@@ -75,6 +83,19 @@ public class Utils {
         } catch (NoSuchElementException | StaleElementReferenceException e) {
             return null;
         }
+    }
+
+    static void writeToJson(ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("friends", friendList);
+        userData.put("photos", photoList);
+        userData.put("places", placeList);
+        userData.put("posts", postList);
+        userData.put("videos", videoList);
+        userData.put("feed", null);
+        ObjectMapper data = new ObjectMapper();
+        data.enable(SerializationFeature.INDENT_OUTPUT);
+        data.writeValue(new File("generatedUserData.json"), userData);
     }
 
     static void closeDriver(WebDriver dr) {
