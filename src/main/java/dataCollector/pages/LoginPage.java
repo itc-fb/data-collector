@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
-    private WebDriverWait wait = new WebDriverWait(Utils.driver, 3);
+    private WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
 
     private void loginFieldInput(){
         WebElement loginFieldLocator = wait.until(
