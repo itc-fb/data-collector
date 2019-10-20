@@ -2,12 +2,21 @@ package dataCollector.getData;
 
 import dataCollector.Constants;
 import dataCollector.Utils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class VideosList {
@@ -34,27 +43,30 @@ public class VideosList {
     }
 
     private ArrayList<Map> getVideosList() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(Utils.driver, 5);
         ArrayList<Map> videoList = new ArrayList<>();
         Utils.waitByMls(5000);
-        if(visibleVideosLocator.size() > 0) {
+        if (visibleVideosLocator.size() > 0) {
             WebElement lastVideo;
             int location = 0;
             while (true) {
                 lastVideo = visibleVideosLocator.get(visibleVideosLocator.size() - 1);
                 if (location == lastVideo.getLocation().y) {
                     for (WebElement videoInfo : visibleVideosLocator) {
-                        Utils.waitByMls(2000);
                         Map<String, String> video = new HashMap<>();
                         String videoUrl = videoInfo.getAttribute("href");
                         videoInfo.click();
+                        WebElement videoDescriptionLocator;
+                        String videoDescription;
                         try {
-                            String videoDescription = videoDescriptionLocator.getText();
-                            video.put("url", videoUrl);
-                            video.put("description ", videoDescription);
-                        } catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e) {
-                            video.put("url", videoUrl);
-                            video.put("description ", null);
+                            videoDescriptionLocator = wait.until(
+                                    ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.VIDEO_DESCRIPTION_LOCATOR_BY_CSS)));
+                            videoDescription = videoDescriptionLocator.getText();
+                        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
+                            videoDescription = null;
                         }
+                        video.put("url", videoUrl);
+                        video.put("description ", videoDescription);
                         Utils.waitByMls(2000);
                         Utils.driver.navigate().back();
                         videoList.add(video);
@@ -65,18 +77,17 @@ public class VideosList {
                 Utils.scrollByLocation(location);
                 Utils.waitByMls(3000);
             }
-        }
-        else{
+        } else {
             videoList.add(null);
         }
         return videoList;
     }
 
-    public void getVideos() throws InterruptedException {
+    public ArrayList<Map> getVideos() throws InterruptedException {
         Utils.moveToElement(moreDropDownLocator);
         Utils.waitByMls(3000);
         videoSectionClick();
-        System.out.println(getVideosList());
+        return getVideosList();
     }
 
 }

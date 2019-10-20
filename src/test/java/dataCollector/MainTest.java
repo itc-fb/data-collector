@@ -9,6 +9,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MainTest {
 
@@ -25,40 +27,39 @@ public class MainTest {
         new MainPage().userProfileButtonClick();
     }
 
-    private void getFriendsList() throws InterruptedException {
+    private ArrayList<String> getFriendsList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new FriendsList(Utils.driver).getFriendsList();
+        return new FriendsList(Utils.driver).getFriendsList();
     }
 
-    private void getPlaceList() throws InterruptedException {
+    private ArrayList<String> getPlaceList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PlacesList(Utils.driver).getPlaces();
+        return new PlacesList(Utils.driver).getPlaces();
     }
 
-    private void getVideosList() throws InterruptedException {
+    private ArrayList<Map> getVideosList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new VideosList(Utils.driver).getVideos();
+        return new VideosList(Utils.driver).getVideos();
     }
 
-    private void getUserPostList() throws InterruptedException {
+    private ArrayList<Map> getUserPostList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PostList(Utils.driver).getUserPosts();
+        return new PostList(Utils.driver).getUserPosts();
     }
 
-    private void getPhotoList() throws InterruptedException {
+    private ArrayList<Map> getPhotoList() throws InterruptedException {
         goToUserProfile();
         Utils.waitByMls(5000);
-        new PhotoList(Utils.driver).getPhotos();
+        return new PhotoList(Utils.driver).getPhotos();
     }
 
     @Parameters({"browser"})
     @BeforeClass
     static public void setupDriver(String browser) {
-
         Utils.initDriver(browser);
     }
 
@@ -72,11 +73,13 @@ public class MainTest {
 
         openFacebookPage();
         getLoggedToMainPage();
-        getFriendsList();
-//        getPlaceList();
-//        getVideosList();
-//        getUserPostList();
-//        getPhotoList();
+        ArrayList<String> friends = getFriendsList();
+        ArrayList<String> places = getPlaceList();
+        ArrayList<Map> videos = getVideosList();
+        ArrayList<Map> posts = getUserPostList();
+        ArrayList<Map> photos = getPhotoList();
+        Utils.writeToJson(friends, places, videos, posts, photos);
+
 
         System.out.println(System.getProperty("os.name"));
     }

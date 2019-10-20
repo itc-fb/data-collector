@@ -41,7 +41,6 @@ public class Constants {
     public static final String POST_MESSAGE_TEXT_BY_CSS = "div[data-testid=\"post_message\"]>p";
     public static final String POST_MAP_ATTACHMENT_IMAGE_LOCATOR_BY_CSS = "div[class=\"_4j7v _4_w3\"]>img";
     public static final String POST_IMAGE_LOCATOR_BY_CSS = "div[class=\"_46-h _4-ep\"]>img";
-    public static final String POST_VIDEO_LOCATOR_BY_CSS = "div[class=\"_53j5\"]>video";
     public static final String POST_LINK_LOCATOR_BY_CSS = "div[class=\"_3bjv ellipsis\"]>a";
     public static final String COUNT_OF_PEOPLE_CHECKED_IN_POST_LINK_LOCATOR_BY_CSS = "div[class=\"_1-jc ellipsis\"]>span";
     public static final String PLACE_WHERE_CHECKED_IN_THE_POST_LOCATOR_BY_CSS = "div[class=\"_1-jb ellipsis fsm fwn fcg\"]";
@@ -57,5 +56,6 @@ public class Constants {
     public static final String IMAGE_DATE_LOCATOR_BY_CSS = "span[id=\"fbPhotoSnowliftTimestamp\"]>a>abbr";
     public static final String IMAGE_TEXT_LOCATOR_BY_CSS = "span[class=\"hasCaption\"]";
     public static final String IMAGE_PLACE_LOCATOR_BY_CSS = "span[class=\"ogTagItem\"]>span>span>a";
-    public static final String IMAGE_ATTACHED_PEOPLE_LOCATOR_BY_CSS = "span[class=\"ogTagItem\"]>span>a";
+    public static final String IMAGE_ATTACHED_PEOPLE_FIRST_LOCATOR_BY_XPATH = "//*[@class=\"ogTagItem\"]/span/a";
+    public static final String IMAGE_ATTACHED_PEOPLE_SECOND_LOCATOR_BY_XPATH = "//*[@class=\"fcg\"]/span[@class=\"fbPhotoTagListTag withTagItem tagItem\"]/a";
 }

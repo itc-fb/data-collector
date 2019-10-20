@@ -28,7 +28,6 @@ public class PostList {
                 postTitleLocator = Constants.POST_TITLE_LOCATOR_BY_CSS,
                 postMapImageLocator = Constants.POST_MAP_ATTACHMENT_IMAGE_LOCATOR_BY_CSS,
                 postImageLocator = Constants.POST_IMAGE_LOCATOR_BY_CSS,
-                postVideoLocator = Constants.POST_VIDEO_LOCATOR_BY_CSS,
                 postLinkLocator = Constants.POST_LINK_LOCATOR_BY_CSS,
                 postCheckedInPeopleCountLocator = Constants.COUNT_OF_PEOPLE_CHECKED_IN_POST_LINK_LOCATOR_BY_CSS,
                 postCheckedInPlaceLocator = Constants.PLACE_WHERE_CHECKED_IN_THE_POST_LOCATOR_BY_CSS,
@@ -55,7 +54,6 @@ public class PostList {
                             postMessage = Utils.getElementInnerTextByParentByCss(postInfo, postMessageLocator),
                             postMapImage = Utils.getElementAttributeValueByParentByCss(postInfo, postMapImageLocator, "src"),
                             postImage = Utils.getElementAttributeValueByParentByCss(postInfo, postImageLocator, "src"),
-                            postVideo = Utils.getElementAttributeValueByParentByCss(postInfo, postVideoLocator, "src"),
                             postLink = Utils.getElementAttributeValueByParentByCss(postInfo, postLinkLocator, "href"),
                             postCheckedInPeopleCount = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPeopleCountLocator),
                             postCheckInPlace = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPlaceLocator),
@@ -67,7 +65,6 @@ public class PostList {
                     post.put("Message", postMessage);
                     post.put("MapImageUrl", postMapImage);
                     post.put("ImageUrl", postImage);
-                    post.put("VideoUrl", postVideo);
                     post.put("PostedLink", postLink);
                     post.put("CheckinPeopleCount", postCheckedInPeopleCount);
                     post.put("CheckinPlace", postCheckInPlace);
@@ -84,8 +81,8 @@ public class PostList {
         return postList;
     }
 
-    public void getUserPosts() throws InterruptedException {
+    public ArrayList<Map> getUserPosts() throws InterruptedException {
         Utils.waitByMls(2000);
-        System.out.println(getUserPostsList());
+        return getUserPostsList();
     }
 }

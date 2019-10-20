@@ -57,8 +57,8 @@ public class FriendsList {
         return friendsList;
     }
 
-    public void getFriendsList() throws InterruptedException {
+    public ArrayList<String> getFriendsList() throws InterruptedException {
         friendsSectionClick();
-        System.out.println(getFriends());
+        return getFriends();
     }
 }

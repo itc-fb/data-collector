@@ -66,10 +66,10 @@ public class PlacesList{
         return places;
     }
 
-    public void getPlaces() throws InterruptedException {
+    public ArrayList<String> getPlaces() throws InterruptedException {
         Utils.moveToElement(moreDropDownLocator);
         Utils.waitByMls(2000);
         placeLocatorClick();
-        System.out.println(getPlacesNames());
+        return getPlacesNames();
     }
 }
