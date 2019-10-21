@@ -1,6 +1,7 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
+import dataCollector.JsonKeys;
 import dataCollector.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -54,7 +55,7 @@ public class VideosList {
                 if (location == lastVideo.getLocation().y) {
                     for (WebElement videoInfo : visibleVideosLocator) {
                         Map<String, String> video = new HashMap<>();
-                        String videoUrl = videoInfo.getAttribute("href");
+                        String videoUrl = videoInfo.getAttribute(Constants.A_ATTRIBUTE_HREF);
                         videoInfo.click();
                         WebElement videoDescriptionLocator;
                         String videoDescription;
@@ -65,8 +66,8 @@ public class VideosList {
                         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
                             videoDescription = null;
                         }
-                        video.put("url", videoUrl);
-                        video.put("description ", videoDescription);
+                        video.put(JsonKeys.VIDEO_URL, videoUrl);
+                        video.put(JsonKeys.DESCRIPTION, videoDescription);
                         Utils.waitByMls(2000);
                         Utils.driver.navigate().back();
                         videoList.add(video);

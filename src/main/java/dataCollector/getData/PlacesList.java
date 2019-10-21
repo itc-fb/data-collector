@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlacesList{
+public class PlacesList {
 
     public PlacesList(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -50,12 +50,11 @@ public class PlacesList{
                 location = lastPlace.getLocation().y;
                 Utils.scrollByLocation(location);
                 Utils.waitByMls(3000);
-
                 if (visiblePlaces.size() == count) {
-                    String placeAttributeTitle = "title";
                     for (WebElement placeElement : visiblePlaces
                     ) {
-                        places.add(placeElement.getAttribute(placeAttributeTitle));
+                        places.add(placeElement.getAttribute(Constants.A_ATTRIBUTE_TITLE));
+
                     }
                     break;
                 }

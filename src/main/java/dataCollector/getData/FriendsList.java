@@ -43,10 +43,9 @@ public class FriendsList {
                 Utils.scrollByLocation(location);
                 Utils.waitByMls(5000);
                 if (visibleFriends.size() == count) {
-                    String friendAttributeAriaLabel = "aria-label";
                     for (WebElement friend : visibleFriends
                     ) {
-                        friendsList.add(friend.getAttribute(friendAttributeAriaLabel));
+                        friendsList.add(friend.getAttribute(Constants.IMG_ATTRIBUTE_ARIA_LABEL));
                     }
                     break;
                 }

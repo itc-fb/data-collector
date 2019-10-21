@@ -1,6 +1,7 @@
 package dataCollector.getData;
 
 import dataCollector.Constants;
+import dataCollector.JsonKeys;
 import dataCollector.Utils;
 
 import org.openqa.selenium.WebDriver;
@@ -45,8 +46,8 @@ public class PhotoList {
     private void findMyPhotosSectionAndClick() {
         for (WebElement section : photosSections
         ) {
-            String findSection = section.getAttribute("href");
-            if (findSection.contains("photos_all")) {
+            String findSection = section.getAttribute(Constants.A_ATTRIBUTE_HREF);
+            if (findSection.contains(Constants.MY_PHOTO_SECTION_CHECK)) {
                 section.click();
             }
         }
@@ -57,10 +58,10 @@ public class PhotoList {
             for (WebElement person : attachedPeopleLocator
             ) {
                 Map<String, String> attachedPerson = new HashMap<>();
-                String attachedPersonPageUrl = person.getAttribute("href");
+                String attachedPersonPageUrl = person.getAttribute(Constants.A_ATTRIBUTE_HREF);
                 String attachedPersonName = person.getText();
-                attachedPerson.put("pageUrl", attachedPersonPageUrl);
-                attachedPerson.put("name", attachedPersonName);
+                attachedPerson.put(JsonKeys.PAGE_URL, attachedPersonPageUrl);
+                attachedPerson.put(JsonKeys.NAME, attachedPersonName);
                 attachedPeople.add(attachedPerson);
             }
         return attachedPeople;
@@ -76,28 +77,28 @@ public class PhotoList {
                 imageDateLocator = Constants.IMAGE_DATE_LOCATOR_BY_CSS,
                 imageTextLocator = Constants.IMAGE_TEXT_LOCATOR_BY_CSS,
                 imagePlaceLocator = Constants.IMAGE_PLACE_LOCATOR_BY_CSS,
-                firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, "src");
+                firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC);
         while (true) {
             Map<String, Object> photo = new HashMap<>();
-            String imageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, "src"),
-                    imageDate = Utils.getElementAttributeValueByCss(imageDateLocator, "title"),
+            String imageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC),
+                    imageDate = Utils.getElementAttributeValueByCss(imageDateLocator, Constants.ABBR_ATTRIBUTE_TITLE),
                     imageText = Utils.getElementInnerTextByCss(imageTextLocator),
-                    imagePlace = Utils.getElementAttributeValueByCss(imagePlaceLocator, "href");
+                    imagePlace = Utils.getElementAttributeValueByCss(imagePlaceLocator, Constants.A_ATTRIBUTE_HREF);
             if(attachedPeopleFirstLocator.size() > 0){
-                photo.put("attachedPeople", collectAttachedPeople(attachedPeopleFirstLocator));
+                photo.put(JsonKeys.ATTACHED_PEOPLE, collectAttachedPeople(attachedPeopleFirstLocator));
             }else if(attachedPeopleSecondLocator.size() > 0){
-                photo.put("attachedPeople", collectAttachedPeople(attachedPeopleSecondLocator));
+                photo.put(JsonKeys.ATTACHED_PEOPLE, collectAttachedPeople(attachedPeopleSecondLocator));
             }else{
-                photo.put("attachedPeople", null);
+                photo.put(JsonKeys.ATTACHED_PEOPLE, null);
             }
-            photo.put("url", imageUrl);
-            photo.put("date", imageDate);
-            photo.put("text", imageText);
-            photo.put("place", imagePlace);
+            photo.put(JsonKeys.IMAGE_URL, imageUrl);
+            photo.put(JsonKeys.IMAGE_DATE, imageDate);
+            photo.put(JsonKeys.TEXT, imageText);
+            photo.put(JsonKeys.PLACE, imagePlace);
             photoList.add(photo);
             nextImageLocator.click();
             Utils.waitByMls(3000);
-            String checkImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, "src");
+            String checkImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC);
             assert firstImageUrl != null;
             if (firstImageUrl.equals(checkImageUrl)) {
                 break;

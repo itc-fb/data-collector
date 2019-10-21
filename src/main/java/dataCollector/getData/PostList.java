@@ -2,6 +2,7 @@ package dataCollector.getData;
 
 
 import dataCollector.Constants;
+import dataCollector.JsonKeys;
 import dataCollector.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,34 +44,34 @@ public class PostList {
         while (true) {
             Utils.waitByMls(4000);
             lastPost = postListLocator.get(postListLocator.size() - 1);
-            lastDate = postDateListLocator.get(postDateListLocator.size() - 1).getAttribute("title");
+            lastDate = postDateListLocator.get(postDateListLocator.size() - 1).getAttribute(Constants.ABBR_ATTRIBUTE_TITLE);
             newYear = Calendar.getInstance().get(Calendar.YEAR) - 1;
             checkYear = lastDate.contains(Integer.toString(newYear));
             if (location == lastPost.getLocation().y || checkYear) {
                 for (WebElement postInfo : postListLocator) {
                     Map<String, String> post = new HashMap<>();
                     String postTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTitleLocator),
-                            postDate = Utils.getElementAttributeValueByParentByCss(postInfo, postDateLocator, "title"),
+                            postDate = Utils.getElementAttributeValueByParentByCss(postInfo, postDateLocator, Constants.ABBR_ATTRIBUTE_TITLE),
                             postMessage = Utils.getElementInnerTextByParentByCss(postInfo, postMessageLocator),
-                            postMapImage = Utils.getElementAttributeValueByParentByCss(postInfo, postMapImageLocator, "src"),
-                            postImage = Utils.getElementAttributeValueByParentByCss(postInfo, postImageLocator, "src"),
-                            postLink = Utils.getElementAttributeValueByParentByCss(postInfo, postLinkLocator, "href"),
+                            postMapImage = Utils.getElementAttributeValueByParentByCss(postInfo, postMapImageLocator, Constants.IMG_ATTRIBUTE_SRC),
+                            postImage = Utils.getElementAttributeValueByParentByCss(postInfo, postImageLocator, Constants.IMG_ATTRIBUTE_SRC),
+                            postLink = Utils.getElementAttributeValueByParentByCss(postInfo, postLinkLocator, Constants.A_ATTRIBUTE_HREF),
                             postCheckedInPeopleCount = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPeopleCountLocator),
                             postCheckInPlace = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPlaceLocator),
                             postTextTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTextTitleLocator),
                             postText = Utils.getElementInnerTextByParentByCss(postInfo, postTextLocator),
-                            sharedPostLink = Utils.getElementAttributeValueByParentByCss(postInfo,sharedPostLinkLocator,"href");
-                    post.put("Title", postTitle);
-                    post.put("Date", postDate);
-                    post.put("Message", postMessage);
-                    post.put("MapImageUrl", postMapImage);
-                    post.put("ImageUrl", postImage);
-                    post.put("PostedLink", postLink);
-                    post.put("CheckinPeopleCount", postCheckedInPeopleCount);
-                    post.put("CheckinPlace", postCheckInPlace);
-                    post.put("PostTextTitle", postTextTitle);
-                    post.put("PostText", postText);
-                    post.put("SharedPostLink",sharedPostLink);
+                            sharedPostLink = Utils.getElementAttributeValueByParentByCss(postInfo,sharedPostLinkLocator,Constants.A_ATTRIBUTE_HREF);
+                    post.put(JsonKeys.TITLE, postTitle);
+                    post.put(JsonKeys.POST_DATE, postDate);
+                    post.put(JsonKeys.MESSAGE, postMessage);
+                    post.put(JsonKeys.MAP_IMAGE_URL, postMapImage);
+                    post.put(JsonKeys.POST_IMAGE_URL, postImage);
+                    post.put(JsonKeys.POSTED_LINK, postLink);
+                    post.put(JsonKeys.CHECKIN_PEOPLE_COUNT, postCheckedInPeopleCount);
+                    post.put(JsonKeys.CHECKIN_PLACE, postCheckInPlace);
+                    post.put(JsonKeys.POST_TEXT_TITLE, postTextTitle);
+                    post.put(JsonKeys.POST_TEXT, postText);
+                    post.put(JsonKeys.SHARED_POST_LINK,sharedPostLink);
                     postList.add(post);
                 }
                 break;

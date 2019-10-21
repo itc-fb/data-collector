@@ -58,4 +58,17 @@ public class Constants {
     public static final String IMAGE_PLACE_LOCATOR_BY_CSS = "span[class=\"ogTagItem\"]>span>span>a";
     public static final String IMAGE_ATTACHED_PEOPLE_FIRST_LOCATOR_BY_XPATH = "//*[@class=\"ogTagItem\"]/span/a";
     public static final String IMAGE_ATTACHED_PEOPLE_SECOND_LOCATOR_BY_XPATH = "//*[@class=\"fcg\"]/span[@class=\"fbPhotoTagListTag withTagItem tagItem\"]/a";
+
+    //Photo section string container
+    public static final String MY_PHOTO_SECTION_CHECK = "photos_all";
+
+    // Element Attribute name
+    public static final String IMG_ATTRIBUTE_ARIA_LABEL = "aria-label";
+    public static final String ABBR_ATTRIBUTE_TITLE = "title";
+    public static final String IMG_ATTRIBUTE_SRC = "src";
+    public static final String A_ATTRIBUTE_HREF = "href";
+    public static final String A_ATTRIBUTE_TITLE = "title";
+
 }
+
+
