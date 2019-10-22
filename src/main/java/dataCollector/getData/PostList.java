@@ -8,9 +8,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PostList {
+
 
     public PostList(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -21,6 +27,18 @@ public class PostList {
 
     @FindBy(css = Constants.POST_DATE_LOCATOR_BY_CSS)
     private List<WebElement> postDateListLocator;
+
+    private static String exportNumberFromString(String checkingCount){
+        String [] numbers = checkingCount.split("[^0-9]");
+        StringBuilder result = new StringBuilder();
+        for (String number : numbers) {
+            result.append(number);
+        }
+        if(result.toString().equals("")){
+            return null;
+        }
+        return result.toString();
+    }
 
     private ArrayList<Map> getUserPostsList() throws InterruptedException {
         ArrayList<Map> postList = new ArrayList<>();
@@ -40,7 +58,6 @@ public class PostList {
         int newYear,
                 location = 0;
         boolean checkYear;
-
         while (true) {
             Utils.waitByMls(4000);
             lastPost = postListLocator.get(postListLocator.size() - 1);
@@ -61,6 +78,9 @@ public class PostList {
                             postTextTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTextTitleLocator),
                             postText = Utils.getElementInnerTextByParentByCss(postInfo, postTextLocator),
                             sharedPostLink = Utils.getElementAttributeValueByParentByCss(postInfo,sharedPostLinkLocator,Constants.A_ATTRIBUTE_HREF);
+                    if(postCheckedInPeopleCount != null) {
+                        postCheckedInPeopleCount = exportNumberFromString(postCheckedInPeopleCount);
+                    }
                     post.put(JsonKeys.TITLE, postTitle);
                     post.put(JsonKeys.POST_DATE, postDate);
                     post.put(JsonKeys.MESSAGE, postMessage);

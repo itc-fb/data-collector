@@ -4,10 +4,13 @@ import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.Object;
 import java.util.ArrayList;
@@ -40,6 +43,8 @@ public class PhotoList {
     private WebElement nextImageLocator;
 
     private void photoSectionClick() {
+        WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.PHOTO_SECTION_LOCATOR_BY_CSS)));
         photoSection.click();
     }
 
@@ -108,7 +113,6 @@ public class PhotoList {
     }
 
     public ArrayList<Map> getPhotos() throws InterruptedException {
-        Utils.waitByMls(2000);
         photoSectionClick();
         Utils.waitByMls(3000);
         findMyPhotosSectionAndClick();

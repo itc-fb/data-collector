@@ -2,10 +2,13 @@ package dataCollector.getData;
 
 import dataCollector.Constants;
 import dataCollector.Utils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.util.ArrayList;
@@ -34,6 +37,8 @@ public class PlacesList {
     private WebElement placesCountLocator;
 
     private void placeLocatorClick() {
+        WebDriverWait wait = new WebDriverWait(Utils.driver,15);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.PLACE_SECTION_LOCATOR_BY_CSS)));
         placeSectionLocator.click();
     }
 
@@ -67,7 +72,6 @@ public class PlacesList {
 
     public ArrayList<String> getPlaces() throws InterruptedException {
         Utils.moveToElement(moreDropDownLocator);
-        Utils.waitByMls(2000);
         placeLocatorClick();
         return getPlacesNames();
     }
