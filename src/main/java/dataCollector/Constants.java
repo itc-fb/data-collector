@@ -62,12 +62,28 @@ public class Constants {
     //Photo section string container
     public static final String MY_PHOTO_SECTION_CHECK = "photos_all";
 
+    
+    //Feed locators
+    static final String ALL_FEED_LOCATOR_BY_CSS = "div[role=\"feed\"]>:nth-child(3)";
+    static final String FEED_LIST_LOCATOR_BY_CSS = "div[class=\"_5pcr userContentWrapper\"]>div[class=\"_1dwg _1w_m _q7o\"]>:nth-child(2)";
+    static final String POST_TITLE_LOCATOR_BY_CSS = "[class=\"_7tae _14f3 _14f5 _5pbw _5vra\"]";
+    static final String POST_DATE_LOCATOR_BY_CSS = ""; // TODO
+    static final String POST_MESSAGE_LOCATOR_BY_CSS = "div[data-testid=\"post_message\"]";
+    static final String POST_IMAGE_LOCATOR_FIRST_BY_CSS = "div[class=\"uiScaledImageContainer _6m5 fbStoryAttachmentImage\"]>img";
+    static final String POST_IMAGE_LOCATOR_SECOND_BY_CSS = "div[class=\"uiScaledImageContainer _517g\"]>img"; // TODO
+    static final String POST_SHARED_LINK_BY_CSS = "a[class=\"_52c6\"]";
+    static final String POST_SHARED_TEXT_BY_CSS = "div[class=\"text_exposed_root\"]>p";
+
+
     // Element Attribute name
     public static final String IMG_ATTRIBUTE_ARIA_LABEL = "aria-label";
     public static final String ABBR_ATTRIBUTE_TITLE = "title";
     public static final String IMG_ATTRIBUTE_SRC = "src";
     public static final String A_ATTRIBUTE_HREF = "href";
     public static final String A_ATTRIBUTE_TITLE = "title";
+
+
+
 
 }
 
