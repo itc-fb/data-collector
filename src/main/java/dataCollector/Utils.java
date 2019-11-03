@@ -20,11 +20,11 @@ import java.util.Map;
 public class Utils {
     public static WebDriver driver;
 
-    static void maximizeWindow(WebDriver dr) {
+    public static void maximizeWindow(WebDriver dr) {
         dr.manage().window().maximize();
     }
 
-    static void getUrl(WebDriver dr) {
+    public static void getUrl(WebDriver dr) {
         dr.get(Constants.BASE_URL);
     }
 
@@ -85,18 +85,27 @@ public class Utils {
         }
     }
 
-    static void writeToJson(ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
+    public static String getElementInnerTextByTagNameByCss(WebElement parent, String tagName, String attribute){
+        try{
+            return parent.findElement(By.tagName(tagName)).getAttribute(attribute);        }
+        catch( NoSuchElementException | StaleElementReferenceException e ){
+            return null;
+        }
+    }
+
+    static void writeToJson(ArrayList feed,ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
         Map<String, Object> userData = new HashMap<>();
         userData.put("friends", friendList);
         userData.put("photos", photoList);
         userData.put("places", placeList);
         userData.put("posts", postList);
         userData.put("videos", videoList);
-        userData.put("feed", null);
+        userData.put("feed", feed);
         ObjectMapper data = new ObjectMapper();
         data.enable(SerializationFeature.INDENT_OUTPUT);
         data.writeValue(new File("generatedUserData.json"), userData);
     }
+
 
     static void closeDriver(WebDriver dr) {
         dr.quit();
