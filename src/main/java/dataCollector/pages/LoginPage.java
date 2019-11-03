@@ -37,7 +37,9 @@ public class LoginPage {
         }
     }
 
-    public void goToMainPage(){
+    public void logIn(){
+        Utils.maximizeWindow(Utils.driver);
+        Utils.getUrl(Utils.driver);
         loginFieldInput();
         passwordFieldInput();
         submitButtonClick();

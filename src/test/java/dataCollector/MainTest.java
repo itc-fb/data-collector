@@ -14,47 +14,8 @@ import java.util.Map;
 
 public class MainTest {
 
-    private void openFacebookPage() {
-        Utils.maximizeWindow(Utils.driver);
-        Utils.getUrl(Utils.driver);
-    }
-
     private void getLoggedToMainPage() {
-        new LoginPage().goToMainPage();
-    }
-
-    private void goToUserProfile() {
-        new MainPage().userProfileButtonClick();
-    }
-
-    private ArrayList<String> getFriendsList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        return new FriendsList(Utils.driver).getFriendsList();
-    }
-
-    private ArrayList<String> getPlaceList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        return new PlacesList(Utils.driver).getPlaces();
-    }
-
-    private ArrayList<Map> getVideosList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        return new VideosList(Utils.driver).getVideos();
-    }
-
-    private ArrayList<Map> getUserPostList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        return new PostList(Utils.driver).getUserPosts();
-    }
-
-    private ArrayList<Map> getPhotoList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        return new PhotoList(Utils.driver).getPhotos();
+        new LoginPage().logIn();
     }
 
     @Parameters({"browser"})
@@ -70,16 +31,14 @@ public class MainTest {
 
     @Test
     public void testMethod() throws InterruptedException, IOException {
-
-        openFacebookPage();
         getLoggedToMainPage();
-        ArrayList<String> friends = getFriendsList();
-        ArrayList<String> places = getPlaceList();
-        ArrayList<Map> videos = getVideosList();
-        ArrayList<Map> posts = getUserPostList();
-        ArrayList<Map> photos = getPhotoList();
-        Utils.writeToJson(friends, places, videos, posts, photos);
-
+        ArrayList<Map> feed = new FeedList(Utils.driver).getFeedList();
+        ArrayList<String> friends = new FriendsList(Utils.driver).getFriendsList();
+        ArrayList<String> places = new PlacesList(Utils.driver).getPlaceList();
+        ArrayList<Map> videos = new VideosList(Utils.driver).getVideoList();
+        ArrayList<Map> posts = new PostList(Utils.driver).getUserPostList();
+        ArrayList<Map> photos = new PhotoList(Utils.driver).getPhotoList();
+        Utils.writeToJson(feed, friends, places, videos, posts, photos);
 
         System.out.println(System.getProperty("os.name"));
     }
