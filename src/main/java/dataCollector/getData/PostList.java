@@ -4,6 +4,7 @@ package dataCollector.getData;
 import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
+import dataCollector.pages.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,7 +41,11 @@ public class PostList {
         return result.toString();
     }
 
-    private ArrayList<Map> getUserPostsList() throws InterruptedException {
+    private void goToUserProfile() {
+        new MainPage().userProfileButtonClick();
+    }
+
+    private ArrayList<Map> getUserPosts() throws InterruptedException {
         ArrayList<Map> postList = new ArrayList<>();
         String postDateLocator = Constants.POST_DATE_LOCATOR_BY_CSS,
                 postMessageLocator = Constants.POST_MESSAGE_TEXT_BY_CSS,
@@ -49,10 +54,7 @@ public class PostList {
                 postImageLocator = Constants.POST_IMAGE_LOCATOR_BY_CSS,
                 postLinkLocator = Constants.POST_LINK_LOCATOR_BY_CSS,
                 postCheckedInPeopleCountLocator = Constants.COUNT_OF_PEOPLE_CHECKED_IN_POST_LINK_LOCATOR_BY_CSS,
-                postCheckedInPlaceLocator = Constants.PLACE_WHERE_CHECKED_IN_THE_POST_LOCATOR_BY_CSS,
-                postTextTitleLocator = Constants.POST_TEXT_TITLE_LOCATOR_BY_CSS,
-                postTextLocator = Constants.POST_TEXT_LOCATOR_BY_CSS,
-                sharedPostLinkLocator = Constants.SHARED_POST_LINK_LOCATOR_BY_CSS;
+                postCheckedInPlaceLocator = Constants.PLACE_WHERE_CHECKED_IN_THE_POST_LOCATOR_BY_CSS;
         WebElement lastPost;
         String lastDate;
         int newYear,
@@ -74,10 +76,7 @@ public class PostList {
                             postImage = Utils.getElementAttributeValueByParentByCss(postInfo, postImageLocator, Constants.IMG_ATTRIBUTE_SRC),
                             postLink = Utils.getElementAttributeValueByParentByCss(postInfo, postLinkLocator, Constants.A_ATTRIBUTE_HREF),
                             postCheckedInPeopleCount = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPeopleCountLocator),
-                            postCheckInPlace = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPlaceLocator),
-                            postTextTitle = Utils.getElementInnerTextByParentByCss(postInfo, postTextTitleLocator),
-                            postText = Utils.getElementInnerTextByParentByCss(postInfo, postTextLocator),
-                            sharedPostLink = Utils.getElementAttributeValueByParentByCss(postInfo,sharedPostLinkLocator,Constants.A_ATTRIBUTE_HREF);
+                            postCheckInPlace = Utils.getElementInnerTextByParentByCss(postInfo, postCheckedInPlaceLocator);
                     if(postCheckedInPeopleCount != null) {
                         postCheckedInPeopleCount = exportNumberFromString(postCheckedInPeopleCount);
                     }
@@ -89,9 +88,6 @@ public class PostList {
                     post.put(JsonKeys.POSTED_LINK, postLink);
                     post.put(JsonKeys.CHECKIN_PEOPLE_COUNT, postCheckedInPeopleCount);
                     post.put(JsonKeys.CHECKIN_PLACE, postCheckInPlace);
-                    post.put(JsonKeys.POST_TEXT_TITLE, postTextTitle);
-                    post.put(JsonKeys.POST_TEXT, postText);
-                    post.put(JsonKeys.SHARED_POST_LINK,sharedPostLink);
                     postList.add(post);
                 }
                 break;
@@ -102,8 +98,9 @@ public class PostList {
         return postList;
     }
 
-    public ArrayList<Map> getUserPosts() throws InterruptedException {
-        Utils.waitByMls(2000);
-        return getUserPostsList();
+    public ArrayList<Map> getUserPostList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        return getUserPosts();
     }
 }

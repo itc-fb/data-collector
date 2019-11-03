@@ -2,13 +2,11 @@ package dataCollector.getData;
 
 import dataCollector.Constants;
 import dataCollector.Utils;
-import org.openqa.selenium.By;
+import dataCollector.pages.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.util.ArrayList;
@@ -22,13 +20,6 @@ public class PlacesList {
 
     }
 
-    @FindBy(css = Constants.MORE_DROPDOWN_LOCATOR_BY_CSS)
-    private WebElement moreDropDownLocator;
-
-
-    @FindBy(css = Constants.PLACE_SECTION_LOCATOR_BY_CSS)
-    private WebElement placeSectionLocator;
-
 
     @FindBy(css = Constants.VISIBLE_PLACES_LOCATOR_BY_CSS)
     private List<WebElement> visiblePlaces;
@@ -36,10 +27,14 @@ public class PlacesList {
     @FindBy(css = Constants.PLACES_COUNT_LOCATOR_BY_CSS)
     private WebElement placesCountLocator;
 
-    private void placeLocatorClick() {
-        WebDriverWait wait = new WebDriverWait(Utils.driver,15);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.PLACE_SECTION_LOCATOR_BY_CSS)));
-        placeSectionLocator.click();
+    private void goToPlacePage() {
+        String url = Utils.driver.getCurrentUrl();
+        String newUrl = url.concat(Constants.PLACES);
+        Utils.driver.get(newUrl);
+    }
+
+    private void goToUserProfile() {
+        new MainPage().userProfileButtonClick();
     }
 
     private ArrayList<String> getPlacesNames() throws InterruptedException {
@@ -70,9 +65,10 @@ public class PlacesList {
         return places;
     }
 
-    public ArrayList<String> getPlaces() throws InterruptedException {
-        Utils.moveToElement(moreDropDownLocator);
-        placeLocatorClick();
+    public ArrayList<String> getPlaceList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        goToPlacePage();
         return getPlacesNames();
     }
 }

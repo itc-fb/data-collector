@@ -3,13 +3,11 @@ package dataCollector.getData;
 
 import dataCollector.Constants;
 import dataCollector.Utils;
-import org.openqa.selenium.By;
+import dataCollector.pages.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +20,17 @@ public class FriendsList {
     @FindBy(css = Constants.VISIBLE_FRIENDS_LOCATOR_BY_CSS)
     private List<WebElement> visibleFriends;
 
-    @FindBy(css = Constants.FRIENDS_SECTION_LOCATOR_BY_CSS)
-    private WebElement friendsSectionLocator;
-
     @FindBy(css = Constants.FRIENDS_COUNT_LOCATOR_BY_CSS)
     private WebElement friendsCountLocator;
 
-    private void friendsSectionClick() {
-        WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.FRIENDS_SECTION_LOCATOR_BY_CSS)));
-        friendsSectionLocator.click();
+    private void goToFriendsPage() {
+        String url = Utils.driver.getCurrentUrl();
+        String newUrl = url.concat(Constants.FRIENDS);
+        Utils.driver.get(newUrl);
+    }
+
+    private void goToUserProfile() {
+        new MainPage().userProfileButtonClick();
     }
 
     private ArrayList<String> getFriends() throws InterruptedException {
@@ -62,7 +61,9 @@ public class FriendsList {
     }
 
     public ArrayList<String> getFriendsList() throws InterruptedException {
-        friendsSectionClick();
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        goToFriendsPage();
         return getFriends();
     }
 }

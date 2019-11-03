@@ -4,6 +4,7 @@ import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
 
+import dataCollector.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,12 +25,6 @@ public class PhotoList {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = Constants.PHOTO_SECTION_LOCATOR_BY_CSS)
-    private WebElement photoSection;
-
-    @FindBy(css = Constants.PHOTOS_SECTIONS_LOCATOR_BY_CSS)
-    private List<WebElement> photosSections;
-
     @FindBy(css = Constants.FIRST_PHOTO_LOCATOR_BY_CSS)
     private WebElement firstPhotoLocator;
 
@@ -42,20 +37,12 @@ public class PhotoList {
     @FindBy(css = Constants.IMAGE_LOCATOR_BY_CSS)
     private WebElement nextImageLocator;
 
-    private void photoSectionClick() {
-        WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.PHOTO_SECTION_LOCATOR_BY_CSS)));
-        photoSection.click();
-    }
 
-    private void findMyPhotosSectionAndClick() {
-        for (WebElement section : photosSections
-        ) {
-            String findSection = section.getAttribute(Constants.A_ATTRIBUTE_HREF);
-            if (findSection.contains(Constants.MY_PHOTO_SECTION_CHECK)) {
-                section.click();
-            }
-        }
+
+    private void goToPhotosPage() {
+        String url = Utils.driver.getCurrentUrl();
+        String newUrl = url.concat(Constants.PHOTOS);
+        Utils.driver.get(newUrl);
     }
 
     private ArrayList<Map> collectAttachedPeople(List<WebElement> attachedPeopleLocator) {
@@ -76,7 +63,11 @@ public class PhotoList {
         firstPhotoLocator.click();
     }
 
-    private ArrayList<Map> getPhotosList() throws InterruptedException {
+    private void goToUserProfile() {
+        new MainPage().userProfileButtonClick();
+    }
+
+    private ArrayList<Map> getPhotos() throws InterruptedException {
         ArrayList<Map> photoList = new ArrayList<>();
         String imageUrlLocator = Constants.IMAGE_LOCATOR_BY_CSS,
                 imageDateLocator = Constants.IMAGE_DATE_LOCATOR_BY_CSS,
@@ -112,13 +103,14 @@ public class PhotoList {
         return photoList;
     }
 
-    public ArrayList<Map> getPhotos() throws InterruptedException {
-        photoSectionClick();
+    public ArrayList<Map> getPhotoList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        goToPhotosPage();
         Utils.waitByMls(3000);
-        findMyPhotosSectionAndClick();
         firstPhotoClick();
         Utils.waitByMls(3000);
-        return getPhotosList();
+        return getPhotos();
     }
 
 }

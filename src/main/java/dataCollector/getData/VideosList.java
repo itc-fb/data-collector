@@ -3,6 +3,7 @@ package dataCollector.getData;
 import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
+import dataCollector.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -26,12 +27,6 @@ public class VideosList {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = Constants.MORE_DROPDOWN_LOCATOR_BY_CSS)
-    private WebElement moreDropDownLocator;
-
-    @FindBy(css = Constants.VIDEO_SECTION_LOCATOR_BY_CSS)
-    private WebElement videoSectionLocator;
-
     @FindBy(css = Constants.VISIBLE_VIDEOS_LOCATOR_BY_CSS)
     private List<WebElement> visibleVideosLocator;
 
@@ -39,11 +34,17 @@ public class VideosList {
     private WebElement videoDescriptionLocator;
 
 
-    private void videoSectionClick() {
-        videoSectionLocator.click();
+    private void goToVideoPage() {
+        String url = Utils.driver.getCurrentUrl();
+        String newUrl = url.concat(Constants.VIDEOS);
+        Utils.driver.get(newUrl);
+    }
+    private void goToUserProfile() {
+        new MainPage().userProfileButtonClick();
     }
 
-    private ArrayList<Map> getVideosList() throws InterruptedException {
+
+    private ArrayList<Map> getVideos() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(Utils.driver, 5);
         ArrayList<Map> videoList = new ArrayList<>();
         Utils.waitByMls(5000);
@@ -84,11 +85,11 @@ public class VideosList {
         return videoList;
     }
 
-    public ArrayList<Map> getVideos() throws InterruptedException {
-        Utils.moveToElement(moreDropDownLocator);
-        Utils.waitByMls(3000);
-        videoSectionClick();
-        return getVideosList();
+    public ArrayList<Map> getVideoList() throws InterruptedException {
+        goToUserProfile();
+        Utils.waitByMls(5000);
+        goToVideoPage();
+        return getVideos();
     }
 
 }
