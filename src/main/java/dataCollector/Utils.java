@@ -9,12 +9,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
@@ -30,7 +32,7 @@ public class Utils {
 
     static void initDriver(String browser) {
         switch (browser) {    //TO DO
-            case "chrome":
+            case Constants.CHROME:
                 driver = new ChromeDriverFactory().initChromeDriver();
                 break;
             default:
@@ -48,9 +50,26 @@ public class Utils {
         Thread.sleep(mls);
     }
 
-    public static void moveToElement(WebElement el) {
-        Actions actions = new Actions(Utils.driver);
-        actions.moveToElement(el).perform();
+
+    public static String checkImageType(WebElement container) {
+        try {
+            return container.findElement(By.cssSelector(Constants.FEED_POST_IMAGE_LOCATOR_FIRST_BY_CSS)).getAttribute(Constants.IMG_ATTRIBUTE_SRC);
+
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+
+            try {
+                return container.findElement(By.cssSelector(Constants.FEED_POST_IMAGE_LOCATOR_SECOND_BY_CSS)).getAttribute(Constants.IMG_ATTRIBUTE_SRC);
+
+            } catch (NoSuchElementException | StaleElementReferenceException er) {
+                return null;
+            }
+        }
+    }
+
+    public static String executeDate(int date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT, Locale.ENGLISH);
+        LocalDateTime newDate = LocalDateTime.now().minusDays((int)Math.floor(date/Constants.POST_COUNT));
+        return dateFormat.format(newDate);
     }
 
     public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute) {
@@ -95,17 +114,16 @@ public class Utils {
 
     static void writeToJson(ArrayList feed,ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
         Map<String, Object> userData = new HashMap<>();
-        userData.put("friends", friendList);
-        userData.put("photos", photoList);
-        userData.put("places", placeList);
-        userData.put("posts", postList);
-        userData.put("videos", videoList);
-        userData.put("feed", feed);
+        userData.put(JsonKeys.FRIENDS, friendList);
+        userData.put(JsonKeys.PHOTOS, photoList);
+        userData.put(JsonKeys.PLACES, placeList);
+        userData.put(JsonKeys.POSTS, postList);
+        userData.put(JsonKeys.VIDEOS, videoList);
+        userData.put(JsonKeys.FEED, feed);
         ObjectMapper data = new ObjectMapper();
         data.enable(SerializationFeature.INDENT_OUTPUT);
-        data.writeValue(new File("generatedUserData.json"), userData);
+        data.writeValue(new File(Constants.GENERATED_FILE_NAME), userData);
     }
-
 
     static void closeDriver(WebDriver dr) {
         dr.quit();

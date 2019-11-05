@@ -10,22 +10,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
-    private WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
+    private static WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
 
-    private void loginFieldInput(){
-        WebElement loginFieldLocator = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.LOGIN_FIELD_LOCATOR_BY_CSS)));
-        loginFieldLocator.sendKeys(Constants.INPUT_LOGIN);
+    private static void loginAndPasswordInput(String inputData, String locator){
+        WebElement input;
+        input = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locator)));
+        input.sendKeys(inputData);
     }
 
-    private void passwordFieldInput(){
-        WebElement passwordFieldLocator;
-        passwordFieldLocator = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.PASSWORD_FIELD_LOCATOR_BY_CSS)));
-        passwordFieldLocator.sendKeys(Constants.INPUT_PASSWORD);
-    }
-
-    private void submitButtonClick(){
+    private static void submitButtonClick(){
         WebElement submitButtonLocator;
         try{submitButtonLocator = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.SUBMIT_INPUT_BUTTON_LOCATOR_BY_CSS)));
@@ -37,11 +31,12 @@ public class LoginPage {
         }
     }
 
-    public void logIn(){
+    public static void logIn(String login, String password){
         Utils.maximizeWindow(Utils.driver);
         Utils.getUrl(Utils.driver);
-        loginFieldInput();
-        passwordFieldInput();
+        loginAndPasswordInput(login, Constants.LOGIN_FIELD_LOCATOR_BY_CSS);
+        loginAndPasswordInput(password, Constants.PASSWORD_FIELD_LOCATOR_BY_CSS);
         submitButtonClick();
     }
+
 }
