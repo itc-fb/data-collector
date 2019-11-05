@@ -3,7 +3,6 @@ package dataCollector.getData;
 import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
-import dataCollector.pages.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -35,12 +34,9 @@ public class VideosList {
 
 
     private void goToVideoPage() {
-        String url = Utils.driver.getCurrentUrl();
-        String newUrl = url.concat(Constants.VIDEOS);
+        String profileUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
+        String newUrl = profileUrl.concat(Constants.VIDEOS);
         Utils.driver.get(newUrl);
-    }
-    private void goToUserProfile() {
-        new MainPage().userProfileButtonClick();
     }
 
 
@@ -79,16 +75,13 @@ public class VideosList {
                 Utils.scrollByLocation(location);
                 Utils.waitByMls(3000);
             }
-        } else {
-            videoList.add(null);
         }
         return videoList;
     }
 
     public ArrayList<Map> getVideoList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
         goToVideoPage();
+        Utils.waitByMls(3000);
         return getVideos();
     }
 

@@ -2,16 +2,13 @@ package dataCollector.getData;
 
 import dataCollector.Constants;
 import dataCollector.Utils;
-import dataCollector.pages.MainPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PlacesList {
 
@@ -20,7 +17,6 @@ public class PlacesList {
 
     }
 
-
     @FindBy(css = Constants.VISIBLE_PLACES_LOCATOR_BY_CSS)
     private List<WebElement> visiblePlaces;
 
@@ -28,13 +24,9 @@ public class PlacesList {
     private WebElement placesCountLocator;
 
     private void goToPlacePage() {
-        String url = Utils.driver.getCurrentUrl();
-        String newUrl = url.concat(Constants.PLACES);
+        String profileUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
+        String newUrl = profileUrl.concat(Constants.PLACES);
         Utils.driver.get(newUrl);
-    }
-
-    private void goToUserProfile() {
-        new MainPage().userProfileButtonClick();
     }
 
     private ArrayList<String> getPlacesNames() throws InterruptedException {
@@ -59,16 +51,13 @@ public class PlacesList {
                     break;
                 }
             }
-        } else {
-            places.add(null);
         }
         return places;
     }
 
     public ArrayList<String> getPlaceList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
         goToPlacePage();
+        Utils.waitByMls(3000);
         return getPlacesNames();
     }
 }

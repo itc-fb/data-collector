@@ -1,10 +1,9 @@
 package dataCollector.getData;
 
-
 import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
-import dataCollector.pages.MainPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class PostList {
-
 
     public PostList(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -41,8 +39,9 @@ public class PostList {
         return result.toString();
     }
 
-    private void goToUserProfile() {
-        new MainPage().userProfileButtonClick();
+    private void goToProfile() {
+        String newUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
+        Utils.driver.get(newUrl);
     }
 
     private ArrayList<Map> getUserPosts() throws InterruptedException {
@@ -99,7 +98,7 @@ public class PostList {
     }
 
     public ArrayList<Map> getUserPostList() throws InterruptedException {
-        goToUserProfile();
+        goToProfile();
         Utils.waitByMls(5000);
         return getUserPosts();
     }
