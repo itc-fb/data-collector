@@ -10,7 +10,6 @@ public class JsonKeys {
             POSTED_LINK = "postedLink",
             CHECKIN_PEOPLE_COUNT = "checkinPeopleCount",
             CHECKIN_PLACE = "checkinPlace",
-            POST_TEXT_TITLE = "postTextTitle",
             POST_TEXT = "postText",
             SHARED_POST_LINK = "sharedPostLink",
             VIDEO_URL = "url",
@@ -21,7 +20,13 @@ public class JsonKeys {
             IMAGE_URL = "url",
             IMAGE_DATE = "date",
             TEXT = "text",
-            PLACE = "place";
+            PLACE = "place",
+            FRIENDS = "friends",
+            PHOTOS = "photos",
+            PLACES = "places",
+            POSTS = "posts",
+            VIDEOS = "videos",
+            FEED = "feed";
 }
 
 
