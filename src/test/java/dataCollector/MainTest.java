@@ -2,7 +2,6 @@ package dataCollector;
 
 import dataCollector.getData.*;
 import dataCollector.pages.LoginPage;
-import dataCollector.pages.MainPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -14,11 +13,7 @@ import java.util.Map;
 
 public class MainTest {
 
-    private void getLoggedToMainPage() {
-        new LoginPage().logIn();
-    }
-
-    @Parameters({"browser"})
+    @Parameters({Constants.BROWSER_NAME})
     @BeforeClass
     static public void setupDriver(String browser) {
         Utils.initDriver(browser);
@@ -29,9 +24,10 @@ public class MainTest {
         Utils.closeDriver(Utils.driver);
     }
 
+    @Parameters({Constants.LOGIN, Constants.PASSWORD})
     @Test
-    public void testMethod() throws InterruptedException, IOException {
-        getLoggedToMainPage();
+    public void getData(String login, String password) throws InterruptedException, IOException {
+        LoginPage.logIn(login, password);
         ArrayList<Map> feed = new FeedList(Utils.driver).getFeedList();
         ArrayList<String> friends = new FriendsList(Utils.driver).getFriendsList();
         ArrayList<String> places = new PlacesList(Utils.driver).getPlaceList();
@@ -39,7 +35,5 @@ public class MainTest {
         ArrayList<Map> posts = new PostList(Utils.driver).getUserPostList();
         ArrayList<Map> photos = new PhotoList(Utils.driver).getPhotoList();
         Utils.writeToJson(feed, friends, places, videos, posts, photos);
-
-        System.out.println(System.getProperty("os.name"));
     }
 }
