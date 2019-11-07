@@ -19,4 +19,4 @@ The framework collects user personal information from Facebook in order to furth
 3. Install Python.
 4. Add all to environment variable PATH.
 5. Clone this repository.
-6. From clonned folder type in command line __python run.py__ and follow the instructions in command line.
+6. From clonned folder type in command line __python run.py__.
