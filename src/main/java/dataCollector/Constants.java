@@ -2,12 +2,11 @@ package dataCollector;
 
 public class Constants {
     static final String BASE_URL = "https://www.facebook.com/";
-    static final String GENERATED_FILE_NAME = "generatedUserData.json";
 
     //Parameters
-    public static final String BROWSER_NAME = "browser";
-    public static final String LOGIN = "login";
-    public static final String PASSWORD = "password";
+    static final String BROWSER_NAME = "browser";
+    static final String LOGIN = "login";
+    static final String PASSWORD = "password";
     // Login page locators
     public static final String LOGIN_FIELD_LOCATOR_BY_CSS = "input[name=\"email\"]";
     public static final String PASSWORD_FIELD_LOCATOR_BY_CSS = "input[name=\"pass\"]";

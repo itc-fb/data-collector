@@ -41,13 +41,22 @@ public class Utils {
         }
     }
 
-    public static void scrollByLocation(int location) {
+    public static void scrollToLocationWithWait(int location, int waitAfter){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0," + location + ")");
+        waitByMls(waitAfter);
     }
 
-    public static void waitByMls(int mls) throws InterruptedException {
-        Thread.sleep(mls);
+    public static void scrollToLocationWithWait(int location){
+        scrollToLocationWithWait(location, 5000);
+    }
+
+    public static void waitByMls(int mls) {
+        try {
+            Thread.sleep(mls);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -112,7 +121,7 @@ public class Utils {
         }
     }
 
-    static void writeToJson(ArrayList feed,ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
+    static void writeToJson(String login, ArrayList feed,ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
         Map<String, Object> userData = new HashMap<>();
         userData.put(JsonKeys.FRIENDS, friendList);
         userData.put(JsonKeys.PHOTOS, photoList);
@@ -122,7 +131,7 @@ public class Utils {
         userData.put(JsonKeys.FEED, feed);
         ObjectMapper data = new ObjectMapper();
         data.enable(SerializationFeature.INDENT_OUTPUT);
-        data.writeValue(new File(Constants.GENERATED_FILE_NAME), userData);
+        data.writeValue(new File("usersGeneratedData/"+login+".json"), userData);
     }
 
     static void closeDriver(WebDriver dr) {
