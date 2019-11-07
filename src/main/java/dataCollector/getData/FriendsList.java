@@ -25,7 +25,7 @@ public class FriendsList {
         Utils.driver.get(newUrl);
     }
 
-    private ArrayList<String> getFriends() throws InterruptedException {
+    private ArrayList<String> getFriends() {
         ArrayList<String> friendsList = new ArrayList<>();
         Utils.waitByMls(5000);
         if (visibleFriends.size() > 0) {
@@ -33,16 +33,15 @@ public class FriendsList {
             int location = 0;
             while (true) {
                 lastFriend = visibleFriends.get(visibleFriends.size() - 1);
+                Utils.waitByMls(2000);
                 if (lastFriend.getLocation().y == location) {
-                    for (WebElement friend : visibleFriends
-                    ) {
+                    for (WebElement friend : visibleFriends) {
                         friendsList.add(friend.getAttribute(Constants.IMG_ATTRIBUTE_ARIA_LABEL));
                     }
                     break;
                 }
                 location = lastFriend.getLocation().y;
-                Utils.scrollByLocation(location);
-                Utils.waitByMls(5000);
+                Utils.scrollToLocationWithWait(location); //5000
             }
         }
         return friendsList;

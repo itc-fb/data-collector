@@ -40,7 +40,7 @@ public class PlacesList {
             while (visiblePlaces.size() <= count) {
                 lastPlace = visiblePlaces.get(visiblePlaces.size() - 1);
                 location = lastPlace.getLocation().y;
-                Utils.scrollByLocation(location);
+                Utils.scrollToLocationWithWait(location);
                 Utils.waitByMls(3000);
                 if (visiblePlaces.size() == count) {
                     for (WebElement placeElement : visiblePlaces

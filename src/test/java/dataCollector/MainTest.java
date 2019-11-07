@@ -34,6 +34,8 @@ public class MainTest {
         ArrayList<Map> videos = new VideosList(Utils.driver).getVideoList();
         ArrayList<Map> posts = new PostList(Utils.driver).getUserPostList();
         ArrayList<Map> photos = new PhotoList(Utils.driver).getPhotoList();
-        Utils.writeToJson(feed, friends, places, videos, posts, photos);
+        Utils.writeToJson(login, feed, friends, places, videos, posts, photos);
     }
+
+    
 }

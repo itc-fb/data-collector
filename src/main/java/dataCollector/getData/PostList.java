@@ -92,7 +92,7 @@ public class PostList {
                 break;
             }
             location = lastPost.getLocation().y;
-            Utils.scrollByLocation(location);
+            Utils.scrollToLocationWithWait(location);
         }
         return postList;
     }

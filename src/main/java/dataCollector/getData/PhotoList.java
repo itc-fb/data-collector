@@ -3,11 +3,10 @@ package dataCollector.getData;
 import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,15 +38,16 @@ public class PhotoList {
 
     private ArrayList<Map> collectAttachedPeople(List<WebElement> attachedPeopleLocator) {
         ArrayList<Map> attachedPeople = new ArrayList<>();
-            for (WebElement person : attachedPeopleLocator
-            ) {
-                Map<String, String> attachedPerson = new HashMap<>();
-                String attachedPersonPageUrl = person.getAttribute(Constants.A_ATTRIBUTE_HREF);
-                String attachedPersonName = person.getText();
-                attachedPerson.put(JsonKeys.PAGE_URL, attachedPersonPageUrl);
-                attachedPerson.put(JsonKeys.NAME, attachedPersonName);
-                attachedPeople.add(attachedPerson);
-            }
+        attachedPeopleLocator.forEach((person) -> {
+            Map<String, String> attachedPerson = new HashMap<>();
+            String attachedPersonPageUrl = person.getAttribute(Constants.A_ATTRIBUTE_HREF);
+            String attachedPersonName = person.getText();
+            attachedPerson.put(JsonKeys.PAGE_URL, attachedPersonPageUrl);
+            attachedPerson.put(JsonKeys.NAME, attachedPersonName);
+            attachedPeople.add(attachedPerson);
+        });
+
+
         return attachedPeople;
     }
 
@@ -57,12 +57,15 @@ public class PhotoList {
 
     private ArrayList<Map> getPhotos() throws InterruptedException {
         ArrayList<Map> photoList = new ArrayList<>();
-        String imageUrlLocator = Constants.IMAGE_LOCATOR_BY_CSS,
-                imageDateLocator = Constants.IMAGE_DATE_LOCATOR_BY_CSS,
-                imageTextLocator = Constants.IMAGE_TEXT_LOCATOR_BY_CSS,
-                imagePlaceLocator = Constants.IMAGE_PLACE_LOCATOR_BY_CSS,
-                firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC);
-        if(firstPhotoLocator.size() > 0 ) {
+
+        try {
+            firstPhotoClick();
+            Utils.waitByMls(3000);
+            String imageUrlLocator = Constants.IMAGE_LOCATOR_BY_CSS,
+                    imageDateLocator = Constants.IMAGE_DATE_LOCATOR_BY_CSS,
+                    imageTextLocator = Constants.IMAGE_TEXT_LOCATOR_BY_CSS,
+                    imagePlaceLocator = Constants.IMAGE_PLACE_LOCATOR_BY_CSS,
+                    firstImageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC);
             while (true) {
                 Map<String, Object> photo = new HashMap<>();
                 String imageUrl = Utils.getElementAttributeValueByCss(imageUrlLocator, Constants.IMG_ATTRIBUTE_SRC),
@@ -89,15 +92,17 @@ public class PhotoList {
                     break;
                 }
             }
+
+            return photoList;
+        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException | IndexOutOfBoundsException e) {
+            return photoList;
         }
-        return photoList;
     }
 
     public ArrayList<Map> getPhotoList() throws InterruptedException {
         goToPhotosPage();
         Utils.waitByMls(3000);
-        firstPhotoClick();
-        Utils.waitByMls(3000);
+
         return getPhotos();
     }
 

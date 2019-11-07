@@ -72,7 +72,7 @@ public class VideosList {
                     break;
                 }
                 location = lastVideo.getLocation().y;
-                Utils.scrollByLocation(location);
+                Utils.scrollToLocationWithWait(location);
                 Utils.waitByMls(3000);
             }
         }
