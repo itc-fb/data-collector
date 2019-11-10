@@ -9,7 +9,7 @@ The framework collects user personal information from Facebook in order to furth
 ## Necessary environments
 
 * Java 1.8 or higher you can download from [here](https://java.com/ru/download/).
-* Maven 3.6.2 you can download from [here](https://maven.apache.org/download.cgi), instruction how to install maven, you can see [here](http://www.apache-maven.ru/install.html).
+* Maven 3.6.2 you can download from [here](https://maven.apache.org/download.cgi), instruction how to install maven, you can see [here](https://maven.apache.org/install.html).
 * Python 3.* you can download from [here](https://www.python.org/downloads/).
 
 ## How to run
