@@ -9,8 +9,9 @@ def setData():
         if(isFile):
             openFile(sys.argv[1])
         else:
-            defaultDataFile = "userLoginAndPass.txt"
-            openFile(defaultDataFile)
+            print("Please type correct file path.")
+    else:
+        openFile("userLoginAndPass.txt")
 
 def openFile(path):
     with open(path) as csv_file:
