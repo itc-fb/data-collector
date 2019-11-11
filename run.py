@@ -4,7 +4,7 @@ import sys
 import argparse
 
 def setData():
-    parser = argparse.ArgumentParser(epilog="Example of usage: 'python run.py --usersFilePath ../Desktop/example.txt'")
+    parser = argparse.ArgumentParser(epilog="Example of usage: 'python run.py --usersFilePath ../Desktop/example.txt' or by default 'python run.py'")
     parser.add_argument("--usersFilePath", help="Get file path.")
     args = parser.parse_args()
     if(args.usersFilePath is not None):
