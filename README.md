@@ -19,4 +19,4 @@ The framework collects user personal information from Facebook in order to furth
 3. Install Python.
 4. Add all to environment variable PATH.
 5. Clone this repository.
-6. From clonned folder type in command line __python run.py__ by default this command will run script with userLoginAndPass csv, or __python run.py ../../example.txt__(your csv file full path) to run script with your file.
+6. From clonned folder type in command line __python run.py__ by default this command will run script with userLoginAndPass csv, or __python run.py --usersFilePath ../Desktop/example.txt__(your csv file full path) to run script with your file.
