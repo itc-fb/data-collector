@@ -4,6 +4,7 @@ import dataCollector.Constants;
 import dataCollector.JsonKeys;
 import dataCollector.Utils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,10 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class FeedList {
     public FeedList(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
+
+    @FindBy(css = Constants.FEED_LIST_LOCATOR_BY_CSS)
+    List<WebElement> check;
+
 
     private ArrayList<Map> getFeed() throws InterruptedException, IOException {
         ArrayList<Map> feedList = new ArrayList<>();
@@ -32,41 +38,42 @@ public class FeedList {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.ALL_FEED_LOCATOR_BY_CSS)));
             WebElement allFeed = Utils.driver.findElement(By.cssSelector(Constants.ALL_FEED_LOCATOR_BY_CSS));
             int currentDate = 0;
-
-            while (true) {
-                List<WebElement> feedListLocator = allFeed.findElements(By.cssSelector(Constants.FEED_LIST_LOCATOR_BY_CSS));
-                checkLocation = location;
-                Utils.waitByMls(7000);
-                location = feedListLocator.get(feedListLocator.size() - 1).getLocation().y;
-                if (location == checkLocation || feedListLocator.size() > 10) {
-                    for (WebElement feed : feedListLocator) {
-                        currentDate++;
-                        Map<String, String> post = new HashMap<>();
-                        try {
-                            WebElement postMessageContainer = feed.findElement(By.cssSelector(Constants.FEED_POST_MESSAGE_LOCATOR_BY_CSS));
-                            String postMessage = Utils.getElementInnerTextByTagNameByCss(postMessageContainer, Constants.TAG_NAME_P, Constants.ATTRIBUTE_INNER_TEXT);
-                            String postImageUrl = Utils.checkImageType(feed);
-                            String postTitle = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_TITLE_LOCATOR_BY_CSS, Constants.ATTRIBUTE_INNER_TEXT);
-                            String postDate = Utils.executeDate(currentDate);
-                            String postSharedLink = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_SHARED_LINK_BY_CSS, Constants.A_ATTRIBUTE_HREF);
-                            String postSharedText = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_SHARED_TEXT_BY_CSS, Constants.ATTRIBUTE_INNER_TEXT);
-                            post.put(JsonKeys.MESSAGE, postMessage);
-                            post.put(JsonKeys.POST_IMAGE_URL, postImageUrl);
-                            post.put(JsonKeys.TITLE, postTitle);
-                            post.put(JsonKeys.SHARED_POST_LINK, postSharedLink);
-                            post.put(JsonKeys.POST_TEXT, postSharedText);
-                            post.put(JsonKeys.POST_DATE, postDate);
-                        } catch (NoSuchElementException | StaleElementReferenceException e) {
-                            post.put(JsonKeys.MESSAGE, null);
+            if(check.size() > 0) {
+                while (true) {
+                    List<WebElement> feedListLocator = allFeed.findElements(By.cssSelector(Constants.FEED_LIST_LOCATOR_BY_CSS));
+                    checkLocation = location;
+                    Utils.waitByMls(7000);
+                    location = feedListLocator.get(feedListLocator.size() - 1).getLocation().y;
+                    if (location == checkLocation || feedListLocator.size() > 10) {
+                        for (WebElement feed : feedListLocator) {
+                            currentDate++;
+                            Map<String, String> post = new HashMap<>();
+                            try {
+                                WebElement postMessageContainer = feed.findElement(By.cssSelector(Constants.FEED_POST_MESSAGE_LOCATOR_BY_CSS));
+                                String postMessage = Utils.getElementInnerTextByTagNameByCss(postMessageContainer, Constants.TAG_NAME_P, Constants.ATTRIBUTE_INNER_TEXT);
+                                String postImageUrl = Utils.checkImageType(feed);
+                                String postTitle = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_TITLE_LOCATOR_BY_CSS, Constants.ATTRIBUTE_INNER_TEXT);
+                                String postDate = Utils.executeDate(currentDate);
+                                String postSharedLink = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_SHARED_LINK_BY_CSS, Constants.A_ATTRIBUTE_HREF);
+                                String postSharedText = Utils.getElementAttributeValueByParentByCss(feed, Constants.FEED_POST_SHARED_TEXT_BY_CSS, Constants.ATTRIBUTE_INNER_TEXT);
+                                post.put(JsonKeys.MESSAGE, postMessage);
+                                post.put(JsonKeys.POST_IMAGE_URL, postImageUrl);
+                                post.put(JsonKeys.TITLE, postTitle);
+                                post.put(JsonKeys.SHARED_POST_LINK, postSharedLink);
+                                post.put(JsonKeys.POST_TEXT, postSharedText);
+                                post.put(JsonKeys.POST_DATE, postDate);
+                            } catch (NoSuchElementException | StaleElementReferenceException e) {
+                                post.put(JsonKeys.MESSAGE, null);
+                            }
+                            if (!feedList.contains(post)) {
+                                feedList.add(post);
+                            }
                         }
-                        if (!feedList.contains(post)) {
-                            feedList.add(post);
-                        }
+                        break;
                     }
-                    break;
+                    Utils.scrollToLocationWithWait(location);
+                    Utils.waitByMls(2000);
                 }
-                Utils.scrollToLocationWithWait(location);
-                Utils.waitByMls(2000);
             }
             return feedList;
         } catch (TimeoutException | NoSuchElementException e) {
