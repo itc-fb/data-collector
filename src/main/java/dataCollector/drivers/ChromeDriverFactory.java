@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ChromeDriverFactory {
+    /**
+     *Initialize chrome driver.
+     */
     public WebDriver initChromeDriver(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions ops = new ChromeOptions();

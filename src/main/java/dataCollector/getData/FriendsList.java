@@ -1,6 +1,5 @@
 package dataCollector.getData;
 
-
 import dataCollector.Constants;
 import dataCollector.Utils;
 import org.openqa.selenium.By;
@@ -12,20 +11,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsList {
+    /**
+     *Initialize page factory elements.
+     */
     public FriendsList(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     *Finds visible friends locators before scroll if they are exist.
+     */
     @FindBy(css = Constants.VISIBLE_FRIENDS_LOCATOR_BY_CSS)
     private List<WebElement> visibleFriends;
 
+    /**
+     *Goes to friends page by url.
+     */
     private void goToFriendsPage() {
         String profileUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
         String newUrl = profileUrl.concat(Constants.FRIENDS);
         Utils.driver.get(newUrl);
     }
 
-    private ArrayList<String> getFriends() {
+    /**
+     * Scroll on friends page.
+     * If all friends are loaded, start collecting their names.
+     * After data add to an array list.
+     * Return array list.
+     */
+    public ArrayList<String> getFriendsList() {
+        goToFriendsPage();
+        Utils.waitByMls(3000);
         ArrayList<String> friendsList = new ArrayList<>();
         Utils.waitByMls(5000);
         if (visibleFriends.size() > 0) {
@@ -45,11 +61,5 @@ public class FriendsList {
             }
         }
         return friendsList;
-    }
-
-    public ArrayList<String> getFriendsList() throws InterruptedException {
-        goToFriendsPage();
-        Utils.waitByMls(3000);
-        return getFriends();
     }
 }

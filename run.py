@@ -1,6 +1,5 @@
 import os
 import csv
-import sys
 import argparse
 
 def setData():
@@ -26,8 +25,7 @@ def openFile(path):
             runMaven(login, password)
 
 def runMaven(login, password):
-    browser = "chrome"
-    mvnCommand = "mvn package -Dlogin={} -Dpassword={} -Dbrowser={}".format(login, password, browser)
+    mvnCommand = "mvn package -Dlogin={} -Dpassword={}".format(login, password)
     os.system(mvnCommand)
 
 setData()

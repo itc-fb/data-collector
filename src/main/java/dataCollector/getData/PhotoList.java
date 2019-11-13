@@ -6,7 +6,6 @@ import dataCollector.Utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.lang.Object;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,28 +13,46 @@ import java.util.List;
 import java.util.Map;
 
 public class PhotoList {
+    /**
+     *Initialize page factory elements.
+     */
     public PhotoList(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Finds the first photo locator on photos page.
+     */
     @FindBy(css = Constants.FIRST_PHOTO_LOCATOR_BY_CSS)
     private List<WebElement> firstPhotoLocator;
 
+    /**
+     * Finds the attached people locators on a single photo.
+     */
     @FindBy(xpath = Constants.IMAGE_ATTACHED_PEOPLE_FIRST_LOCATOR_BY_XPATH)
     private List<WebElement> attachedPeopleFirstLocator;
-
     @FindBy(xpath = Constants.IMAGE_ATTACHED_PEOPLE_SECOND_LOCATOR_BY_XPATH)
     private List<WebElement> attachedPeopleSecondLocator;
 
+    /**
+     * Finds the single photo locator.
+     */
     @FindBy(css = Constants.IMAGE_LOCATOR_BY_CSS)
     private WebElement nextImageLocator;
 
+    /**
+     *Goes to photos page by url.
+     */
     private void goToPhotosPage() {
         String profileUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
         String newUrl = profileUrl.concat(Constants.PHOTOS);
         Utils.driver.get(newUrl);
     }
 
+    /**
+     * Collect attached people data from single photo.
+     * Return data in array list.
+     */
     private ArrayList<Map> collectAttachedPeople(List<WebElement> attachedPeopleLocator) {
         ArrayList<Map> attachedPeople = new ArrayList<>();
         attachedPeopleLocator.forEach((person) -> {
@@ -46,18 +63,26 @@ public class PhotoList {
             attachedPerson.put(JsonKeys.NAME, attachedPersonName);
             attachedPeople.add(attachedPerson);
         });
-
-
         return attachedPeople;
     }
 
+    /**
+     * Click on first photo if it exists.
+     */
     private void firstPhotoClick() {
         firstPhotoLocator.get(0).click();
     }
 
-    private ArrayList<Map> getPhotos() throws InterruptedException {
+    /**
+     * Click on first photo if it exists.
+     * Collects all required data from photo, and click next photo and do same steps.
+     * After data add to an array list.
+     * Return array list.
+     */
+    public ArrayList<Map> getPhotoList() {
+        goToPhotosPage();
+        Utils.waitByMls(3000);
         ArrayList<Map> photoList = new ArrayList<>();
-
         try {
             firstPhotoClick();
             Utils.waitByMls(3000);
@@ -92,18 +117,9 @@ public class PhotoList {
                     break;
                 }
             }
-
             return photoList;
         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException | IndexOutOfBoundsException e) {
             return photoList;
         }
     }
-
-    public ArrayList<Map> getPhotoList() throws InterruptedException {
-        goToPhotosPage();
-        Utils.waitByMls(3000);
-
-        return getPhotos();
-    }
-
 }

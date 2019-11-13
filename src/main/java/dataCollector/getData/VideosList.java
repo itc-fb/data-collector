@@ -13,34 +13,49 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class VideosList {
+    /**
+     * Initialize page factory elements.
+     */
     public VideosList(WebDriver driver) {
-
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Finds visible videos locators before scroll.
+     */
     @FindBy(css = Constants.VISIBLE_VIDEOS_LOCATOR_BY_CSS)
     private List<WebElement> visibleVideosLocator;
 
+    /**
+     * Finds video description after click on a single video.
+     */
     @FindBy(css = Constants.VIDEO_DESCRIPTION_LOCATOR_BY_CSS)
     private WebElement videoDescriptionLocator;
 
-
+    /**
+     * Goes to videos page by url.
+     */
     private void goToVideoPage() {
         String profileUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
         String newUrl = profileUrl.concat(Constants.VIDEOS);
         Utils.driver.get(newUrl);
     }
 
-
-    private ArrayList<Map> getVideos() throws InterruptedException {
+    /**
+     * Scroll on videos page.
+     * If all videos are loaded, start collecting their data.
+     * After data add to an array list.
+     * Return array list.
+     */
+    public ArrayList<Map> getVideoList() {
+        goToVideoPage();
+        Utils.waitByMls(3000);
         WebDriverWait wait = new WebDriverWait(Utils.driver, 5);
         ArrayList<Map> videoList = new ArrayList<>();
         Utils.waitByMls(5000);
@@ -78,11 +93,4 @@ public class VideosList {
         }
         return videoList;
     }
-
-    public ArrayList<Map> getVideoList() throws InterruptedException {
-        goToVideoPage();
-        Utils.waitByMls(3000);
-        return getVideos();
-    }
-
 }

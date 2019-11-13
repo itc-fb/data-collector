@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,17 +15,28 @@ import java.util.List;
 import java.util.Map;
 
 public class PostList {
-
+    /**
+     * Initialize page factory elements.
+     */
     public PostList(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Finds posts locators, if they are exist.
+     */
     @FindBy(css = Constants.POST_LIST_LOCATOR_BY_CSS)
     private List<WebElement> postListLocator;
 
+    /**
+     * Finds date locators, to check posts, if they are older than 1 year.
+     */
     @FindBy(css = Constants.POST_DATE_LOCATOR_BY_CSS)
     private List<WebElement> postDateListLocator;
 
+    /**
+     * Get the people checkin count from post.
+     */
     private static String exportNumberFromString(String checkingCount){
         String [] numbers = checkingCount.split("[^0-9]");
         StringBuilder result = new StringBuilder();
@@ -39,12 +49,23 @@ public class PostList {
         return result.toString();
     }
 
+    /**
+     * Goes to user profile page by url.
+     */
     private void goToProfile() {
         String newUrl = Utils.driver.findElement(By.cssSelector(Constants.PROFILE_URL_LOCATOR_BY_CSS)).getAttribute(Constants.A_ATTRIBUTE_HREF);
         Utils.driver.get(newUrl);
     }
 
-    private ArrayList<Map> getUserPosts() throws InterruptedException {
+    /**
+     * Scroll on users profile page.
+     * If all posts are loaded, which is older than 1 yer, start collecting their data.
+     * After data add to an array list.
+     * Return array list.
+     */
+    public ArrayList<Map> getUserPostList() {
+        goToProfile();
+        Utils.waitByMls(5000);
         ArrayList<Map> postList = new ArrayList<>();
         String postDateLocator = Constants.POST_DATE_LOCATOR_BY_CSS,
                 postMessageLocator = Constants.POST_MESSAGE_TEXT_BY_CSS,
@@ -95,11 +116,5 @@ public class PostList {
             Utils.scrollToLocationWithWait(location);
         }
         return postList;
-    }
-
-    public ArrayList<Map> getUserPostList() throws InterruptedException {
-        goToProfile();
-        Utils.waitByMls(5000);
-        return getUserPosts();
     }
 }

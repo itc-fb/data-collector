@@ -8,27 +8,34 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class FeedList {
+    /**
+     * Initialize page factory elements.
+     * */
     public FeedList(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Finds one or more feed posts locators, to check if they are exist.
+     */
     @FindBy(css = Constants.FEED_LIST_LOCATOR_BY_CSS)
-    List<WebElement> check;
+    private List<WebElement> check;
 
-
-    private ArrayList<Map> getFeed() throws InterruptedException, IOException {
+    /**
+     * Scrolls on feed posts page.
+     * Scrolls to the end of page or if the count of posts equals 1000.
+     * After, start collecting of posts data.
+     * Then add data to an array list and return it.
+     */
+    public ArrayList<Map> getFeedList() throws InterruptedException {
         ArrayList<Map> feedList = new ArrayList<>();
         try {
-
             int checkLocation;
             int location = 0;
             WebDriverWait wait = new WebDriverWait(Utils.driver, 15);
@@ -79,14 +86,5 @@ public class FeedList {
         } catch (TimeoutException | NoSuchElementException e) {
             return feedList;
         }
-
     }
-
-    public ArrayList<Map> getFeedList() throws IOException, InterruptedException {
-        return getFeed();
-    }
-
-
 }
-
-

@@ -1,7 +1,9 @@
 package dataCollector;
 
 public class JsonKeys {
-
+    /**
+     * Json keys.
+     */
     public static final String TITLE = "title",
             POST_DATE = "date",
             MESSAGE = "message",
@@ -28,5 +30,3 @@ public class JsonKeys {
             VIDEOS = "videos",
             FEED = "feed";
 }
-
-
