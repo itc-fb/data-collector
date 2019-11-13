@@ -1,82 +1,45 @@
 package dataCollector;
 
 import dataCollector.getData.*;
-import org.openqa.selenium.WebDriver;
+import dataCollector.pages.LoginPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MainTest {
-    private static WebDriver driver;
-
-    private void openFacebookPage(){
-        Utils.maximizeWindow(driver);
-        Utils.doTimeOuts(driver, 30);
-        Utils.getUrl(driver);
-    }
-
-    private void getLoggedToMainPage(){
-        new dataCollector.pages.LoginPage(driver).goToMainPage();
-    }
-
-    private void goToUserProfile(){
-        new dataCollector.pages.MainPage(driver).userProfileButtonClick();
-    }
-
-    private void getFriendsList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        new FriendsList(driver).getFriendsList();
-    }
-
-    private void getPlaceList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        new PlacesList(driver).getPlaces();
-    }
-
-    private void getVideosList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        new VideosList(driver).getVideos();
-    }
-
-    private void getUserPostList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        new PostList(driver).getUserPosts();
-    }
-
-    private void getPhotoList() throws InterruptedException {
-        goToUserProfile();
-        Utils.waitByMls(5000);
-        new PhotoList(driver).getPhotos();
-    }
-
+    /**
+     * Set up the driver before the test method starts.
+     */
     @BeforeClass
-    static public void beforeC() {
-        Utils.initializeDriver();
-        driver = Utils.driver;
+    static public void setupDriver() {
+        Utils.initDriver();
     }
 
+    /**
+     * Quit the driver after the test method finished.
+     */
     @AfterClass
-    static public void afterC() {
-        Utils.closeDriver(driver);
+    static public void closeDriver() {
+        Utils.closeDriver(Utils.driver);
     }
 
+    /**
+     * Test, which collects all required data.
+     */
+    @Parameters({Constants.LOGIN, Constants.PASSWORD})
     @Test
-    public void testMethod() throws InterruptedException, IOException {
-        openFacebookPage();
-        getLoggedToMainPage();
-        getFriendsList();
-        getPlaceList();
-        getVideosList();
-        getUserPostList();
-        getPhotoList();
-
-        System.out.println(System.getProperty("os.name"));
+    public void getData(String login, String password) throws InterruptedException, IOException {
+        LoginPage.logIn(login, password);
+        ArrayList<Map> feed = new FeedList(Utils.driver).getFeedList();
+        ArrayList<String> friends = new FriendsList(Utils.driver).getFriendsList();
+        ArrayList<String> places = new PlacesList(Utils.driver).getPlaceList();
+        ArrayList<Map> videos = new VideosList(Utils.driver).getVideoList();
+        ArrayList<Map> posts = new PostList(Utils.driver).getUserPostList();
+        ArrayList<Map> photos = new PhotoList(Utils.driver).getPhotoList();
+        Utils.writeToJson(login, feed, friends, places, videos, posts, photos);
     }
 }

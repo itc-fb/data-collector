@@ -1,91 +1,176 @@
 package dataCollector;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-
-import java.util.concurrent.TimeUnit;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import dataCollector.drivers.ChromeDriverFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class Utils {
+    /**
+     * Web driver.
+     */
     public static WebDriver driver;
-    private static String operationSystem = System.getProperty("os.name");
 
-    static void maximizeWindow(WebDriver dr) {
+    /**
+     * Maximize browser window.
+     */
+    public static void maximizeWindow(WebDriver dr) {
         dr.manage().window().maximize();
     }
 
-    public static void doTimeOuts(WebDriver dr, int seconds) {
-        dr.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
-    }
-
-    static void getUrl(WebDriver dr) {
+    /**
+     * Open page by url.
+     */
+    public static void getUrl(WebDriver dr) {
         dr.get(Constants.BASE_URL);
     }
 
-    static void initializeDriver() {
-        ChromeOptions ops = new ChromeOptions();
-        ops.addArguments("--disable-notifications");
-        if (operationSystem.contains("Win")) {
-            String windowsChromeDriverPath = "src\\main\\resources\\driver\\win\\chromedriver.exe";
-            System.setProperty("webdriver.chrome.driver", windowsChromeDriverPath);
-        } else if (operationSystem.contains("Linux")) {
-            String linuxChromeDriverPath = "src/main/resources/driver/linux/chromedriver";
-            System.setProperty("webdriver.chrome.driver", linuxChromeDriverPath);
-        }
-        driver = new ChromeDriver(ops);
+    /**
+     * Initialize driver.
+     */
+    static void initDriver() {
+        driver = new ChromeDriverFactory().initChromeDriver();
     }
 
-    public static void scrollByLocation(int location) {
+    /**
+     * Scroll to given location and wait by given time.
+     */
+    public static void scrollToLocationWithWait(int location, int waitAfter){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0," + location + ")");
+        waitByMls(waitAfter);
     }
 
-    public static void waitByMls(int mls) throws InterruptedException {
-        Thread.sleep(mls);
+    /**
+     * Scroll to given location and wait by default time.
+     */
+    public static void scrollToLocationWithWait(int location){
+        scrollToLocationWithWait(location, 5000);
     }
 
-    public static void moveToElement(WebElement el) {
-        Actions actions = new Actions(Utils.driver);
-        actions.moveToElement(el).perform();
+    /**
+     * Wait by given time.
+     */
+    public static void waitByMls(int mls) {
+        try {
+            Thread.sleep(mls);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute){
-        try{
+    /**
+     * Check the type of feed list image locator.
+     */
+    public static String checkImageType(WebElement container) {
+        try {
+            return container.findElement(By.cssSelector(Constants.FEED_POST_IMAGE_LOCATOR_FIRST_BY_CSS)).getAttribute(Constants.IMG_ATTRIBUTE_SRC);
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            try {
+                return container.findElement(By.cssSelector(Constants.FEED_POST_IMAGE_LOCATOR_SECOND_BY_CSS)).getAttribute(Constants.IMG_ATTRIBUTE_SRC);
+            } catch (NoSuchElementException | StaleElementReferenceException er) {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Get date for feed post.
+     */
+    public static String executeDate(int date) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT, Locale.ENGLISH);
+        LocalDateTime newDate = LocalDateTime.now().minusDays((int)Math.floor(date/Constants.POST_COUNT));
+        return dateFormat.format(newDate);
+    }
+
+    /**
+     * Get the element attribute value by his parent element.
+     */
+    public static String getElementAttributeValueByParentByCss(WebElement parent, String selector, String attribute) {
+        try {
             return parent.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            return null;
         }
     }
 
-    public static String getElementInnerTextByParentByCss(WebElement parent, String selector){
-        try{
+    /**
+     * Get the element inner text  by his parent element.
+     */
+    public static String getElementInnerTextByParentByCss(WebElement parent, String selector) {
+        try {
             return parent.findElement(By.cssSelector(selector)).getText();
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            return null;
         }
     }
 
-    public static String getElementAttributeValueByCss(String selector, String attribute){
-        try{
+    /**
+     * Get the element attribute value.
+     */
+    public static String getElementAttributeValueByCss(String selector, String attribute) {
+        try {
             return driver.findElement(By.cssSelector(selector)).getAttribute(attribute);
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            return null;
         }
     }
 
-    public static String getElementInnerTextByCss(String selector){
-        try{
+    /**
+     * Get the element inner text.
+     */
+    public static String getElementInnerTextByCss(String selector) {
+        try {
             return driver.findElement(By.cssSelector(selector)).getText();
-        }catch (org.openqa.selenium.NoSuchElementException | org.openqa.selenium.StaleElementReferenceException e){
-            return "not exist";
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
+            return null;
         }
     }
 
+    /**
+     * Get the element inner text by tag name.
+     */
+    public static String getElementInnerTextByTagNameByCss(WebElement parent, String tagName, String attribute){
+        try{
+            return parent.findElement(By.tagName(tagName)).getAttribute(attribute);        }
+        catch( NoSuchElementException | StaleElementReferenceException e ){
+            return null;
+        }
+    }
+
+    /**
+     * Write all collected data to JSON file.
+     */
+    static void writeToJson(String login, ArrayList feed,ArrayList friendList, ArrayList placeList, ArrayList videoList, ArrayList postList, ArrayList photoList) throws IOException {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put(JsonKeys.FRIENDS, friendList);
+        userData.put(JsonKeys.PHOTOS, photoList);
+        userData.put(JsonKeys.PLACES, placeList);
+        userData.put(JsonKeys.POSTS, postList);
+        userData.put(JsonKeys.VIDEOS, videoList);
+        userData.put(JsonKeys.FEED, feed);
+        ObjectMapper data = new ObjectMapper();
+        data.enable(SerializationFeature.INDENT_OUTPUT);
+        data.writeValue(new File("usersGeneratedData/"+login+".json"), userData);
+    }
+
+    /**
+     * Quit driver.
+     */
     static void closeDriver(WebDriver dr) {
         dr.quit();
     }
-
-
-
 }

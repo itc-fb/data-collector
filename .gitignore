@@ -9,6 +9,7 @@
 **/stale_outputs_checked
 **/javac
 **/test-output/
+**/generatedUserData.json
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids

@@ -1,44 +1,42 @@
 package dataCollector.pages;
 
 import dataCollector.Constants;
-import org.openqa.selenium.WebDriver;
+import dataCollector.Utils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends BasePage {
+public class LoginPage {
+    private static WebDriverWait wait = new WebDriverWait(Utils.driver, 10);
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    private static void loginAndPasswordInput(String inputData, String locator){
+        WebElement input;
+        input = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locator)));
+        input.sendKeys(inputData);
     }
 
-    @FindBy(id = Constants.LOGIN_FIELD_LOCATOR_BY_ID)
-    private WebElement loginFieldLocator;
-
-
-    @FindBy(id = Constants.PASSWORD_FIELD_LOCATOR_BY_ID)
-    private WebElement passwordFieldLocator;
-
-    @FindBy(id = Constants.SUBMIT_BUTTON_LOCATOR_BY_ID)
-    private WebElement submitButtonLocator;
-
-
-    private void loginFieldInput(){
-        loginFieldLocator.sendKeys(Constants.INPUT_LOGIN);
-    }
-
-    private void passwordFieldInput(){
-        passwordFieldLocator.sendKeys(Constants.INPUT_PASSWORD);
-    }
-
-    private void submitButtonClick(){
+    private static void submitButtonClick(){
+        WebElement submitButtonLocator;
+        try{submitButtonLocator = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.SUBMIT_INPUT_BUTTON_LOCATOR_BY_CSS)));
         submitButtonLocator.click();
+        }catch (TimeoutException | NoSuchElementException e){
+            submitButtonLocator = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.cssSelector(Constants.SUBMIT_BUTTON_LOCATOR_BY_CSS)));
+            submitButtonLocator.click();
+        }
     }
 
-    public void goToMainPage(){
-        loginFieldInput();
-        passwordFieldInput();
+    public static void logIn(String login, String password){
+        Utils.maximizeWindow(Utils.driver);
+        Utils.getUrl(Utils.driver);
+        loginAndPasswordInput(login, Constants.LOGIN_FIELD_LOCATOR_BY_CSS);
+        loginAndPasswordInput(password, Constants.PASSWORD_FIELD_LOCATOR_BY_CSS);
         submitButtonClick();
     }
+
 }
